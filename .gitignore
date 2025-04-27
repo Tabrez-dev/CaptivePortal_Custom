@@ -1,1 +1,28 @@
+# ESP-IDF build output
 build/
+*.bin
+*.elf
+*.map
+
+# VS Code settings
+.vscode/
+
+# Python virtual environment
+venv/
+.env/
+
+# ESP-IDF specific
+sdkconfig.old
+sdkconfig.defaults
+sdkconfig
+CMakeCache.txt
+cmake-build-*
+*.pyc
+__pycache__/
+
+# Logs
+*.log
+
+# Other
+.DS_Store
+Thumbs.db
