@@ -1,7 +1,7 @@
 {
     "version":            "1.1",
     "project_name":       "captive_portal",
-    "project_version":    "1",
+    "project_version":    "71ba5f7-dirty",
     "project_path":       "C:/Users/tabre/Documents/LiveCoaching/captive_portal",
     "idf_path":           "C:/Users/tabre/esp/v5.1.5/esp-idf",
     "build_dir":          "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build",
@@ -790,7 +790,7 @@
             "managed_reqs": [],
             "managed_priv_reqs": [],
             "file": "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/esp-idf/main/libmain.a",
-            "sources": [ "C:/Users/tabre/Documents/LiveCoaching/captive_portal/main/main.c", "C:/Users/tabre/Documents/LiveCoaching/captive_portal/main/dns_server.c", "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/index.html.S", "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/app.css.S", "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/app.js.S", "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/jquery-3.3.1.min.js.S", "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/favicon.ico.S" ],
+            "sources": [ "C:/Users/tabre/Documents/LiveCoaching/captive_portal/main/main.c", "C:/Users/tabre/Documents/LiveCoaching/captive_portal/main/dns_server.c", "C:/Users/tabre/Documents/LiveCoaching/captive_portal/main/app_station.c", "C:/Users/tabre/Documents/LiveCoaching/captive_portal/main/time_sync.c", "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/index.html.S", "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/app.css.S", "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/app.js.S", "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/jquery-3.3.1.min.js.S", "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/favicon.ico.S" ],
             "include_dirs": [ "include" ]
         },
         "mbedtls": {

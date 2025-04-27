@@ -80,8 +80,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-lumqsx"
-      binary: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-lumqsx"
+      source: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-o3rcvn"
+      binary: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-o3rcvn"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mlongcalls -Wno-frame-address "
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -91,10 +91,10 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-lumqsx'
+        Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-o3rcvn'
         
-        Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_272bf
-        [1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe   -mlongcalls -Wno-frame-address     -v -o CMakeFiles/cmTC_272bf.dir/CMakeCCompilerABI.c.obj -c C:/Users/tabre/.espressif/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCCompilerABI.c
+        Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_b0e82
+        [1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe   -mlongcalls -Wno-frame-address     -v -o CMakeFiles/cmTC_b0e82.dir/CMakeCCompilerABI.c.obj -c C:/Users/tabre/.espressif/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCCompilerABI.c
         Using built-in specs.
         COLLECT_GCC=C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe
         Target: xtensa-esp32-elf
@@ -102,8 +102,8 @@ events:
         Thread model: posix
         Supported LTO compression algorithms: zlib
         gcc version 12.2.0 (crosstool-NG esp-12.2.0_20230208) 
-        COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_272bf.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_272bf.dir/'
-         c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/cc1.exe -quiet -v -iprefix c:\\users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\../lib/gcc/xtensa-esp32-elf/12.2.0/ C:/Users/tabre/.espressif/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_272bf.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mlongcalls -Wno-frame-address -version -o C:\\Users\\tabre\\AppData\\Local\\Temp\\ccQQHwnS.s
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_b0e82.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_b0e82.dir/'
+         c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/cc1.exe -quiet -v -iprefix c:\\users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\../lib/gcc/xtensa-esp32-elf/12.2.0/ C:/Users/tabre/.espressif/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_b0e82.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mlongcalls -Wno-frame-address -version -o C:\\Users\\tabre\\AppData\\Local\\Temp\\ccoxbyUv.s
         GNU C17 (crosstool-NG esp-12.2.0_20230208) version 12.2.0 (xtensa-esp32-elf)
         	compiled by GNU C version 6.3.0 20170516, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
         
@@ -124,12 +124,12 @@ events:
         
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
         Compiler executable checksum: 4c06f819f3a69a83cffbb10c8d3d9a0e
-        COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_272bf.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_272bf.dir/'
-         c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/as.exe --traditional-format --longcalls -o CMakeFiles/cmTC_272bf.dir/CMakeCCompilerABI.c.obj C:\\Users\\tabre\\AppData\\Local\\Temp\\ccQQHwnS.s
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_b0e82.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_b0e82.dir/'
+         c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/as.exe --traditional-format --longcalls -o CMakeFiles/cmTC_b0e82.dir/CMakeCCompilerABI.c.obj C:\\Users\\tabre\\AppData\\Local\\Temp\\ccoxbyUv.s
         COMPILER_PATH=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/;c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/;c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/
         LIBRARY_PATH=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/;c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/;c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib/\x0d
-        COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_272bf.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_272bf.dir/CMakeCCompilerABI.c.'\x0d
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address -v CMakeFiles/cmTC_272bf.dir/CMakeCCompilerABI.c.obj -o cmTC_272bf   && cd ."
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_b0e82.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_b0e82.dir/CMakeCCompilerABI.c.'\x0d
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address -v CMakeFiles/cmTC_b0e82.dir/CMakeCCompilerABI.c.obj -o cmTC_b0e82   && cd ."
         Using built-in specs.
         COLLECT_GCC=C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe
         COLLECT_LTO_WRAPPER=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/lto-wrapper.exe
@@ -140,9 +140,9 @@ events:
         gcc version 12.2.0 (crosstool-NG esp-12.2.0_20230208) 
         COMPILER_PATH=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/;c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/;c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/
         LIBRARY_PATH=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/;c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/;c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib/
-        COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'cmTC_272bf' '-dumpdir' 'cmTC_272bf.'
-         c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/collect2.exe -plugin c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/liblto_plugin.dll -plugin-opt=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\tabre\\AppData\\Local\\Temp\\ccYS9iDW.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_272bf c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib/crt0.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crti.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtbegin.o -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0 -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib CMakeFiles/cmTC_272bf.dir/CMakeCCompilerABI.c.obj -lgcc -lc -lnosys -lc -lgcc c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtend.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtn.o\x0d
-        COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'cmTC_272bf' '-dumpdir' 'cmTC_272bf.'\x0d
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'cmTC_b0e82' '-dumpdir' 'cmTC_b0e82.'
+         c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/collect2.exe -plugin c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/liblto_plugin.dll -plugin-opt=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\tabre\\AppData\\Local\\Temp\\ccucn16D.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_b0e82 c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib/crt0.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crti.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtbegin.o -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0 -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib CMakeFiles/cmTC_b0e82.dir/CMakeCCompilerABI.c.obj -lgcc -lc -lnosys -lc -lgcc c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtend.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtn.o\x0d
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'cmTC_b0e82' '-dumpdir' 'cmTC_b0e82.'\x0d
         
       exitCode: 0
   -
@@ -179,10 +179,10 @@ events:
       Parsed C implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?))("|,| |$)]
-        ignore line: [Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-lumqsx']
+        ignore line: [Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-o3rcvn']
         ignore line: []
-        ignore line: [Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_272bf]
-        ignore line: [[1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe   -mlongcalls -Wno-frame-address     -v -o CMakeFiles/cmTC_272bf.dir/CMakeCCompilerABI.c.obj -c C:/Users/tabre/.espressif/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCCompilerABI.c]
+        ignore line: [Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_b0e82]
+        ignore line: [[1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe   -mlongcalls -Wno-frame-address     -v -o CMakeFiles/cmTC_b0e82.dir/CMakeCCompilerABI.c.obj -c C:/Users/tabre/.espressif/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCCompilerABI.c]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe]
         ignore line: [Target: xtensa-esp32-elf]
@@ -190,8 +190,8 @@ events:
         ignore line: [Thread model: posix]
         ignore line: [Supported LTO compression algorithms: zlib]
         ignore line: [gcc version 12.2.0 (crosstool-NG esp-12.2.0_20230208) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_272bf.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_272bf.dir/']
-        ignore line: [ c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/cc1.exe -quiet -v -iprefix c:\\users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\../lib/gcc/xtensa-esp32-elf/12.2.0/ C:/Users/tabre/.espressif/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_272bf.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mlongcalls -Wno-frame-address -version -o C:\\Users\\tabre\\AppData\\Local\\Temp\\ccQQHwnS.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_b0e82.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_b0e82.dir/']
+        ignore line: [ c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/cc1.exe -quiet -v -iprefix c:\\users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\../lib/gcc/xtensa-esp32-elf/12.2.0/ C:/Users/tabre/.espressif/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_b0e82.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mlongcalls -Wno-frame-address -version -o C:\\Users\\tabre\\AppData\\Local\\Temp\\ccoxbyUv.s]
         ignore line: [GNU C17 (crosstool-NG esp-12.2.0_20230208) version 12.2.0 (xtensa-esp32-elf)]
         ignore line: [	compiled by GNU C version 6.3.0 20170516  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
         ignore line: []
@@ -212,16 +212,16 @@ events:
         ignore line: []
         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
         ignore line: [Compiler executable checksum: 4c06f819f3a69a83cffbb10c8d3d9a0e]
-        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_272bf.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_272bf.dir/']
-        ignore line: [ c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/as.exe --traditional-format --longcalls -o CMakeFiles/cmTC_272bf.dir/CMakeCCompilerABI.c.obj C:\\Users\\tabre\\AppData\\Local\\Temp\\ccQQHwnS.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_b0e82.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_b0e82.dir/']
+        ignore line: [ c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/as.exe --traditional-format --longcalls -o CMakeFiles/cmTC_b0e82.dir/CMakeCCompilerABI.c.obj C:\\Users\\tabre\\AppData\\Local\\Temp\\ccoxbyUv.s]
         ignore line: [COMPILER_PATH=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/]
         ignore line: [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/]
         ignore line: [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/]
         ignore line: [LIBRARY_PATH=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/]
         ignore line: [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/]
         ignore line: [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib/\x0d]
-        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_272bf.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_272bf.dir/CMakeCCompilerABI.c.'\x0d]
-        ignore line: [[2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address -v CMakeFiles/cmTC_272bf.dir/CMakeCCompilerABI.c.obj -o cmTC_272bf   && cd ."]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_b0e82.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_b0e82.dir/CMakeCCompilerABI.c.'\x0d]
+        ignore line: [[2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address -v CMakeFiles/cmTC_b0e82.dir/CMakeCCompilerABI.c.obj -o cmTC_b0e82   && cd ."]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe]
         ignore line: [COLLECT_LTO_WRAPPER=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/lto-wrapper.exe]
@@ -236,27 +236,27 @@ events:
         ignore line: [LIBRARY_PATH=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/]
         ignore line: [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/]
         ignore line: [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'cmTC_272bf' '-dumpdir' 'cmTC_272bf.']
-        link line: [ c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/collect2.exe -plugin c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/liblto_plugin.dll -plugin-opt=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\tabre\\AppData\\Local\\Temp\\ccYS9iDW.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_272bf c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib/crt0.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crti.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtbegin.o -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0 -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib CMakeFiles/cmTC_272bf.dir/CMakeCCompilerABI.c.obj -lgcc -lc -lnosys -lc -lgcc c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtend.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtn.o\x0d]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'cmTC_b0e82' '-dumpdir' 'cmTC_b0e82.']
+        link line: [ c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/collect2.exe -plugin c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/liblto_plugin.dll -plugin-opt=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\tabre\\AppData\\Local\\Temp\\ccucn16D.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_b0e82 c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib/crt0.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crti.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtbegin.o -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0 -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib CMakeFiles/cmTC_b0e82.dir/CMakeCCompilerABI.c.obj -lgcc -lc -lnosys -lc -lgcc c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtend.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtn.o\x0d]
           arg [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/collect2.exe] ==> ignore
           arg [-plugin] ==> ignore
           arg [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/liblto_plugin.dll] ==> ignore
           arg [-plugin-opt=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/lto-wrapper.exe] ==> ignore
-          arg [-plugin-opt=-fresolution=C:\\Users\\tabre\\AppData\\Local\\Temp\\ccYS9iDW.res] ==> ignore
+          arg [-plugin-opt=-fresolution=C:\\Users\\tabre\\AppData\\Local\\Temp\\ccucn16D.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-lc] ==> ignore
           arg [-plugin-opt=-pass-through=-lnosys] ==> ignore
           arg [-plugin-opt=-pass-through=-lc] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_272bf] ==> ignore
+          arg [cmTC_b0e82] ==> ignore
           arg [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib/crt0.o] ==> obj [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib/crt0.o]
           arg [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crti.o] ==> obj [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crti.o]
           arg [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtbegin.o] ==> obj [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtbegin.o]
           arg [-Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0] ==> dir [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0]
           arg [-Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc] ==> dir [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc]
           arg [-Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib] ==> dir [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib]
-          arg [CMakeFiles/cmTC_272bf.dir/CMakeCCompilerABI.c.obj] ==> ignore
+          arg [CMakeFiles/cmTC_b0e82.dir/CMakeCCompilerABI.c.obj] ==> ignore
           arg [-lgcc] ==> lib [gcc]
           arg [-lc] ==> lib [c]
           arg [-lnosys] ==> lib [nosys]
@@ -264,7 +264,7 @@ events:
           arg [-lgcc] ==> lib [gcc]
           arg [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtend.o] ==> obj [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtend.o]
           arg [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtn.o] ==> obj [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtn.o]
-        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'cmTC_272bf' '-dumpdir' 'cmTC_272bf.'\x0d]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'cmTC_b0e82' '-dumpdir' 'cmTC_b0e82.'\x0d]
         ignore line: []
         ignore line: []
         collapse obj [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib/crt0.o] ==> [C:/Users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/xtensa-esp32-elf/lib/crt0.o]
@@ -291,8 +291,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-bzm1h9"
-      binary: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-bzm1h9"
+      source: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-tptzp3"
+      binary: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-tptzp3"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "-mlongcalls -Wno-frame-address "
       CMAKE_CXX_FLAGS_DEBUG: "-g"
@@ -303,10 +303,10 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-bzm1h9'
+        Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-tptzp3'
         
-        Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_7f76f
-        [1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-g++.exe   -mlongcalls -Wno-frame-address     -v -o CMakeFiles/cmTC_7f76f.dir/CMakeCXXCompilerABI.cpp.obj -c C:/Users/tabre/.espressif/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp
+        Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_3b75b
+        [1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-g++.exe   -mlongcalls -Wno-frame-address     -v -o CMakeFiles/cmTC_3b75b.dir/CMakeCXXCompilerABI.cpp.obj -c C:/Users/tabre/.espressif/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp
         Using built-in specs.
         COLLECT_GCC=C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-g++.exe
         Target: xtensa-esp32-elf
@@ -314,8 +314,8 @@ events:
         Thread model: posix
         Supported LTO compression algorithms: zlib
         gcc version 12.2.0 (crosstool-NG esp-12.2.0_20230208) 
-        COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_7f76f.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_7f76f.dir/'
-         c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/cc1plus.exe -quiet -v -iprefix c:\\users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\../lib/gcc/xtensa-esp32-elf/12.2.0/ C:/Users/tabre/.espressif/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_7f76f.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mlongcalls -Wno-frame-address -version -o C:\\Users\\tabre\\AppData\\Local\\Temp\\ccUuR9Wh.s
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_3b75b.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_3b75b.dir/'
+         c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/cc1plus.exe -quiet -v -iprefix c:\\users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\../lib/gcc/xtensa-esp32-elf/12.2.0/ C:/Users/tabre/.espressif/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_3b75b.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mlongcalls -Wno-frame-address -version -o C:\\Users\\tabre\\AppData\\Local\\Temp\\ccaEmNDV.s
         GNU C++17 (crosstool-NG esp-12.2.0_20230208) version 12.2.0 (xtensa-esp32-elf)
         	compiled by GNU C version 6.3.0 20170516, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
         
@@ -342,12 +342,12 @@ events:
         
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
         Compiler executable checksum: 9c72a7d3a354170cac3e9330110ca410
-        COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_7f76f.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_7f76f.dir/'
-         c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/as.exe --traditional-format --longcalls -o CMakeFiles/cmTC_7f76f.dir/CMakeCXXCompilerABI.cpp.obj C:\\Users\\tabre\\AppData\\Local\\Temp\\ccUuR9Wh.s
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_3b75b.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_3b75b.dir/'
+         c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/as.exe --traditional-format --longcalls -o CMakeFiles/cmTC_3b75b.dir/CMakeCXXCompilerABI.cpp.obj C:\\Users\\tabre\\AppData\\Local\\Temp\\ccaEmNDV.s
         COMPILER_PATH=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/;c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/;c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/
         LIBRARY_PATH=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/;c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/;c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib/
-        COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_7f76f.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_7f76f.dir/CMakeCXXCompilerABI.cpp.'\x0d
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-g++.exe -mlongcalls -Wno-frame-address -v CMakeFiles/cmTC_7f76f.dir/CMakeCXXCompilerABI.cpp.obj -o cmTC_7f76f   && cd ."
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_3b75b.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_3b75b.dir/CMakeCXXCompilerABI.cpp.'\x0d
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-g++.exe -mlongcalls -Wno-frame-address -v CMakeFiles/cmTC_3b75b.dir/CMakeCXXCompilerABI.cpp.obj -o cmTC_3b75b   && cd ."
         Using built-in specs.
         COLLECT_GCC=C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-g++.exe
         COLLECT_LTO_WRAPPER=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/lto-wrapper.exe
@@ -358,9 +358,9 @@ events:
         gcc version 12.2.0 (crosstool-NG esp-12.2.0_20230208) 
         COMPILER_PATH=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/;c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/;c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/
         LIBRARY_PATH=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/;c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/;c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib/
-        COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'cmTC_7f76f' '-dumpdir' 'cmTC_7f76f.'
-         c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/collect2.exe -plugin c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/liblto_plugin.dll -plugin-opt=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\tabre\\AppData\\Local\\Temp\\ccnRT3ka.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_7f76f c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib/crt0.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crti.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtbegin.o -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0 -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib CMakeFiles/cmTC_7f76f.dir/CMakeCXXCompilerABI.cpp.obj -lstdc++ -lm -lgcc -lc -lnosys -lc -lgcc c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtend.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtn.o\x0d
-        COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'cmTC_7f76f' '-dumpdir' 'cmTC_7f76f.'\x0d
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'cmTC_3b75b' '-dumpdir' 'cmTC_3b75b.'
+         c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/collect2.exe -plugin c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/liblto_plugin.dll -plugin-opt=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\tabre\\AppData\\Local\\Temp\\ccgRXF10.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_3b75b c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib/crt0.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crti.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtbegin.o -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0 -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib CMakeFiles/cmTC_3b75b.dir/CMakeCXXCompilerABI.cpp.obj -lstdc++ -lm -lgcc -lc -lnosys -lc -lgcc c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtend.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtn.o\x0d
+        COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'cmTC_3b75b' '-dumpdir' 'cmTC_3b75b.'\x0d
         
       exitCode: 0
   -
@@ -403,10 +403,10 @@ events:
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?))("|,| |$)]
-        ignore line: [Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-bzm1h9']
+        ignore line: [Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-tptzp3']
         ignore line: []
-        ignore line: [Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_7f76f]
-        ignore line: [[1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-g++.exe   -mlongcalls -Wno-frame-address     -v -o CMakeFiles/cmTC_7f76f.dir/CMakeCXXCompilerABI.cpp.obj -c C:/Users/tabre/.espressif/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_3b75b]
+        ignore line: [[1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-g++.exe   -mlongcalls -Wno-frame-address     -v -o CMakeFiles/cmTC_3b75b.dir/CMakeCXXCompilerABI.cpp.obj -c C:/Users/tabre/.espressif/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-g++.exe]
         ignore line: [Target: xtensa-esp32-elf]
@@ -414,8 +414,8 @@ events:
         ignore line: [Thread model: posix]
         ignore line: [Supported LTO compression algorithms: zlib]
         ignore line: [gcc version 12.2.0 (crosstool-NG esp-12.2.0_20230208) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_7f76f.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_7f76f.dir/']
-        ignore line: [ c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/cc1plus.exe -quiet -v -iprefix c:\\users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\../lib/gcc/xtensa-esp32-elf/12.2.0/ C:/Users/tabre/.espressif/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_7f76f.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mlongcalls -Wno-frame-address -version -o C:\\Users\\tabre\\AppData\\Local\\Temp\\ccUuR9Wh.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_3b75b.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_3b75b.dir/']
+        ignore line: [ c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/cc1plus.exe -quiet -v -iprefix c:\\users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\../lib/gcc/xtensa-esp32-elf/12.2.0/ C:/Users/tabre/.espressif/tools/cmake/3.30.2/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_3b75b.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mlongcalls -Wno-frame-address -version -o C:\\Users\\tabre\\AppData\\Local\\Temp\\ccaEmNDV.s]
         ignore line: [GNU C++17 (crosstool-NG esp-12.2.0_20230208) version 12.2.0 (xtensa-esp32-elf)]
         ignore line: [	compiled by GNU C version 6.3.0 20170516  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
         ignore line: []
@@ -442,16 +442,16 @@ events:
         ignore line: []
         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
         ignore line: [Compiler executable checksum: 9c72a7d3a354170cac3e9330110ca410]
-        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_7f76f.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_7f76f.dir/']
-        ignore line: [ c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/as.exe --traditional-format --longcalls -o CMakeFiles/cmTC_7f76f.dir/CMakeCXXCompilerABI.cpp.obj C:\\Users\\tabre\\AppData\\Local\\Temp\\ccUuR9Wh.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_3b75b.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_3b75b.dir/']
+        ignore line: [ c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/as.exe --traditional-format --longcalls -o CMakeFiles/cmTC_3b75b.dir/CMakeCXXCompilerABI.cpp.obj C:\\Users\\tabre\\AppData\\Local\\Temp\\ccaEmNDV.s]
         ignore line: [COMPILER_PATH=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/]
         ignore line: [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/]
         ignore line: [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/]
         ignore line: [LIBRARY_PATH=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/]
         ignore line: [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/]
         ignore line: [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_7f76f.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_7f76f.dir/CMakeCXXCompilerABI.cpp.'\x0d]
-        ignore line: [[2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-g++.exe -mlongcalls -Wno-frame-address -v CMakeFiles/cmTC_7f76f.dir/CMakeCXXCompilerABI.cpp.obj -o cmTC_7f76f   && cd ."]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'CMakeFiles/cmTC_3b75b.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_3b75b.dir/CMakeCXXCompilerABI.cpp.'\x0d]
+        ignore line: [[2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-g++.exe -mlongcalls -Wno-frame-address -v CMakeFiles/cmTC_3b75b.dir/CMakeCXXCompilerABI.cpp.obj -o cmTC_3b75b   && cd ."]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-g++.exe]
         ignore line: [COLLECT_LTO_WRAPPER=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/lto-wrapper.exe]
@@ -466,27 +466,27 @@ events:
         ignore line: [LIBRARY_PATH=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/]
         ignore line: [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/]
         ignore line: [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'cmTC_7f76f' '-dumpdir' 'cmTC_7f76f.']
-        link line: [ c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/collect2.exe -plugin c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/liblto_plugin.dll -plugin-opt=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\tabre\\AppData\\Local\\Temp\\ccnRT3ka.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_7f76f c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib/crt0.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crti.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtbegin.o -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0 -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib CMakeFiles/cmTC_7f76f.dir/CMakeCXXCompilerABI.cpp.obj -lstdc++ -lm -lgcc -lc -lnosys -lc -lgcc c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtend.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtn.o\x0d]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'cmTC_3b75b' '-dumpdir' 'cmTC_3b75b.']
+        link line: [ c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/collect2.exe -plugin c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/liblto_plugin.dll -plugin-opt=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\tabre\\AppData\\Local\\Temp\\ccgRXF10.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -o cmTC_3b75b c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib/crt0.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crti.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtbegin.o -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0 -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc -Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib CMakeFiles/cmTC_3b75b.dir/CMakeCXXCompilerABI.cpp.obj -lstdc++ -lm -lgcc -lc -lnosys -lc -lgcc c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtend.o c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtn.o\x0d]
           arg [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/collect2.exe] ==> ignore
           arg [-plugin] ==> ignore
           arg [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/liblto_plugin.dll] ==> ignore
           arg [-plugin-opt=c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../libexec/gcc/xtensa-esp32-elf/12.2.0/lto-wrapper.exe] ==> ignore
-          arg [-plugin-opt=-fresolution=C:\\Users\\tabre\\AppData\\Local\\Temp\\ccnRT3ka.res] ==> ignore
+          arg [-plugin-opt=-fresolution=C:\\Users\\tabre\\AppData\\Local\\Temp\\ccgRXF10.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-lc] ==> ignore
           arg [-plugin-opt=-pass-through=-lnosys] ==> ignore
           arg [-plugin-opt=-pass-through=-lc] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_7f76f] ==> ignore
+          arg [cmTC_3b75b] ==> ignore
           arg [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib/crt0.o] ==> obj [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib/crt0.o]
           arg [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crti.o] ==> obj [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crti.o]
           arg [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtbegin.o] ==> obj [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtbegin.o]
           arg [-Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0] ==> dir [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0]
           arg [-Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc] ==> dir [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc]
           arg [-Lc:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib] ==> dir [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib]
-          arg [CMakeFiles/cmTC_7f76f.dir/CMakeCXXCompilerABI.cpp.obj] ==> ignore
+          arg [CMakeFiles/cmTC_3b75b.dir/CMakeCXXCompilerABI.cpp.obj] ==> ignore
           arg [-lstdc++] ==> lib [stdc++]
           arg [-lm] ==> lib [m]
           arg [-lgcc] ==> lib [gcc]
@@ -496,7 +496,7 @@ events:
           arg [-lgcc] ==> lib [gcc]
           arg [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtend.o] ==> obj [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtend.o]
           arg [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtn.o] ==> obj [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/crtn.o]
-        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'cmTC_7f76f' '-dumpdir' 'cmTC_7f76f.'\x0d]
+        ignore line: [COLLECT_GCC_OPTIONS='-mlongcalls' '-Wno-frame-address' '-v' '-o' 'cmTC_3b75b' '-dumpdir' 'cmTC_3b75b.'\x0d]
         ignore line: []
         ignore line: []
         collapse obj [c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/lib/crt0.o] ==> [C:/Users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/xtensa-esp32-elf/lib/crt0.o]
@@ -522,8 +522,8 @@ events:
     checks:
       - "Looking for sys/types.h"
     directories:
-      source: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-e08b40"
-      binary: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-e08b40"
+      source: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-1met98"
+      binary: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-1met98"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mlongcalls -Wno-frame-address "
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -533,11 +533,11 @@ events:
       variable: "HAVE_SYS_TYPES_H"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-e08b40'
+        Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-1met98'
         
-        Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_2cec4
-        [1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe   -mlongcalls -Wno-frame-address -o CMakeFiles/cmTC_2cec4.dir/CheckIncludeFile.c.obj -c C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-e08b40/CheckIncludeFile.c
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  CMakeFiles/cmTC_2cec4.dir/CheckIncludeFile.c.obj -o cmTC_2cec4   && cd ."
+        Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_dc7c4
+        [1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe   -mlongcalls -Wno-frame-address -o CMakeFiles/cmTC_dc7c4.dir/CheckIncludeFile.c.obj -c C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-1met98/CheckIncludeFile.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  CMakeFiles/cmTC_dc7c4.dir/CheckIncludeFile.c.obj -o cmTC_dc7c4   && cd ."
         
       exitCode: 0
   -
@@ -549,8 +549,8 @@ events:
     checks:
       - "Looking for stdint.h"
     directories:
-      source: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-pphb9t"
-      binary: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-pphb9t"
+      source: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-pwvxyp"
+      binary: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-pwvxyp"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mlongcalls -Wno-frame-address "
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -560,11 +560,11 @@ events:
       variable: "HAVE_STDINT_H"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-pphb9t'
+        Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-pwvxyp'
         
-        Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_b59a5
-        [1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe   -mlongcalls -Wno-frame-address -o CMakeFiles/cmTC_b59a5.dir/CheckIncludeFile.c.obj -c C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-pphb9t/CheckIncludeFile.c
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  CMakeFiles/cmTC_b59a5.dir/CheckIncludeFile.c.obj -o cmTC_b59a5   && cd ."
+        Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_04943
+        [1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe   -mlongcalls -Wno-frame-address -o CMakeFiles/cmTC_04943.dir/CheckIncludeFile.c.obj -c C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-pwvxyp/CheckIncludeFile.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  CMakeFiles/cmTC_04943.dir/CheckIncludeFile.c.obj -o cmTC_04943   && cd ."
         
       exitCode: 0
   -
@@ -576,8 +576,8 @@ events:
     checks:
       - "Looking for stddef.h"
     directories:
-      source: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-j4ebk7"
-      binary: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-j4ebk7"
+      source: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-5drotg"
+      binary: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-5drotg"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mlongcalls -Wno-frame-address "
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -587,11 +587,11 @@ events:
       variable: "HAVE_STDDEF_H"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-j4ebk7'
+        Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-5drotg'
         
-        Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_22f7f
-        [1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe   -mlongcalls -Wno-frame-address -o CMakeFiles/cmTC_22f7f.dir/CheckIncludeFile.c.obj -c C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-j4ebk7/CheckIncludeFile.c
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  CMakeFiles/cmTC_22f7f.dir/CheckIncludeFile.c.obj -o cmTC_22f7f   && cd ."
+        Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_ec28d
+        [1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe   -mlongcalls -Wno-frame-address -o CMakeFiles/cmTC_ec28d.dir/CheckIncludeFile.c.obj -c C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-5drotg/CheckIncludeFile.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  CMakeFiles/cmTC_ec28d.dir/CheckIncludeFile.c.obj -o cmTC_ec28d   && cd ."
         
       exitCode: 0
   -
@@ -603,8 +603,8 @@ events:
     checks:
       - "Check size of time_t"
     directories:
-      source: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-r1xab3"
-      binary: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-r1xab3"
+      source: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-4oz5p5"
+      binary: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-4oz5p5"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mlongcalls -Wno-frame-address "
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -614,11 +614,11 @@ events:
       variable: "HAVE_TIME_T_SIZE"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-r1xab3'
+        Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-4oz5p5'
         
-        Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_1a5d7
-        [1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe   -mlongcalls -Wno-frame-address -o CMakeFiles/cmTC_1a5d7.dir/TIME_T_SIZE.c.obj -c C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-r1xab3/TIME_T_SIZE.c
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  CMakeFiles/cmTC_1a5d7.dir/TIME_T_SIZE.c.obj -o cmTC_1a5d7   && cd ."
+        Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_36abc
+        [1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe   -mlongcalls -Wno-frame-address -o CMakeFiles/cmTC_36abc.dir/TIME_T_SIZE.c.obj -c C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-4oz5p5/TIME_T_SIZE.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  CMakeFiles/cmTC_36abc.dir/TIME_T_SIZE.c.obj -o cmTC_36abc   && cd ."
         
       exitCode: 0
   -
@@ -632,8 +632,8 @@ events:
     checks:
       - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
     directories:
-      source: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-nneryu"
-      binary: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-nneryu"
+      source: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-k3rbav"
+      binary: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-k3rbav"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mlongcalls -Wno-frame-address "
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -643,20 +643,20 @@ events:
       variable: "CMAKE_HAVE_LIBC_PTHREAD"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-nneryu'
+        Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-k3rbav'
         
-        Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_ccca8
-        [1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -DCMAKE_HAVE_LIBC_PTHREAD  -mlongcalls -Wno-frame-address -o CMakeFiles/cmTC_ccca8.dir/src.c.obj -c C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-nneryu/src.c
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  CMakeFiles/cmTC_ccca8.dir/src.c.obj -o cmTC_ccca8   && cd ."
-        FAILED: cmTC_ccca8 
-        C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  CMakeFiles/cmTC_ccca8.dir/src.c.obj -o cmTC_ccca8   && cd ."
-        c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: CMakeFiles/cmTC_ccca8.dir/src.c.obj:(.literal+0x10): warning: pthread_join is not implemented and will always fail
-        c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: CMakeFiles/cmTC_ccca8.dir/src.c.obj:(.literal+0x18): warning: pthread_exit is not implemented and will always fail
-        c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: CMakeFiles/cmTC_ccca8.dir/src.c.obj:(.literal+0x8): warning: pthread_detach is not implemented and will always fail
-        c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: CMakeFiles/cmTC_ccca8.dir/src.c.obj:(.literal+0x4): warning: pthread_create is not implemented and will always fail
-        c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: CMakeFiles/cmTC_ccca8.dir/src.c.obj:(.literal+0xc): warning: pthread_cancel is not implemented and will always fail
-        c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: CMakeFiles/cmTC_ccca8.dir/src.c.obj:(.literal+0x4): undefined reference to `pthread_atfork'
-        c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: CMakeFiles/cmTC_ccca8.dir/src.c.obj: in function `main':\x0d
+        Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_9766d
+        [1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -DCMAKE_HAVE_LIBC_PTHREAD  -mlongcalls -Wno-frame-address -o CMakeFiles/cmTC_9766d.dir/src.c.obj -c C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-k3rbav/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  CMakeFiles/cmTC_9766d.dir/src.c.obj -o cmTC_9766d   && cd ."
+        FAILED: cmTC_9766d 
+        C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  CMakeFiles/cmTC_9766d.dir/src.c.obj -o cmTC_9766d   && cd ."
+        c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: CMakeFiles/cmTC_9766d.dir/src.c.obj:(.literal+0x10): warning: pthread_join is not implemented and will always fail
+        c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: CMakeFiles/cmTC_9766d.dir/src.c.obj:(.literal+0x18): warning: pthread_exit is not implemented and will always fail
+        c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: CMakeFiles/cmTC_9766d.dir/src.c.obj:(.literal+0x8): warning: pthread_detach is not implemented and will always fail
+        c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: CMakeFiles/cmTC_9766d.dir/src.c.obj:(.literal+0x4): warning: pthread_create is not implemented and will always fail
+        c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: CMakeFiles/cmTC_9766d.dir/src.c.obj:(.literal+0xc): warning: pthread_cancel is not implemented and will always fail
+        c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: CMakeFiles/cmTC_9766d.dir/src.c.obj:(.literal+0x4): undefined reference to `pthread_atfork'
+        c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: CMakeFiles/cmTC_9766d.dir/src.c.obj: in function `main':\x0d
         src.c:(.text+0x3f): undefined reference to `pthread_atfork'\x0d
         collect2.exe: error: ld returned 1 exit status
         ninja: build stopped: subcommand failed.
@@ -671,8 +671,8 @@ events:
     checks:
       - "Check if compiler accepts -pthread"
     directories:
-      source: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-92yikp"
-      binary: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-92yikp"
+      source: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-o3ayeh"
+      binary: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-o3ayeh"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mlongcalls -Wno-frame-address "
       CMAKE_EXE_LINKER_FLAGS: ""
@@ -681,13 +681,13 @@ events:
       variable: "THREADS_HAVE_PTHREAD_ARG"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-92yikp'
+        Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-o3ayeh'
         
-        Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_0c98d
-        [1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe   -mlongcalls -Wno-frame-address -o CMakeFiles/cmTC_0c98d.dir/CheckForPthreads.c.obj -c C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-92yikp/CheckForPthreads.c
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  CMakeFiles/cmTC_0c98d.dir/CheckForPthreads.c.obj -o cmTC_0c98d  -pthread && cd ."
-        FAILED: cmTC_0c98d 
-        C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  CMakeFiles/cmTC_0c98d.dir/CheckForPthreads.c.obj -o cmTC_0c98d  -pthread && cd ."
+        Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_0e299
+        [1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe   -mlongcalls -Wno-frame-address -o CMakeFiles/cmTC_0e299.dir/CheckForPthreads.c.obj -c C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-o3ayeh/CheckForPthreads.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  CMakeFiles/cmTC_0e299.dir/CheckForPthreads.c.obj -o cmTC_0e299  -pthread && cd ."
+        FAILED: cmTC_0e299 
+        C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  CMakeFiles/cmTC_0e299.dir/CheckForPthreads.c.obj -o cmTC_0e299  -pthread && cd ."
         xtensa-esp32-elf-gcc.exe: error: unrecognized command-line option '-pthread'
         ninja: build stopped: subcommand failed.
         
@@ -702,8 +702,8 @@ events:
     checks:
       - "Looking for pthread_create in pthreads"
     directories:
-      source: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-ep8a4w"
-      binary: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-ep8a4w"
+      source: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-lgxfdm"
+      binary: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-lgxfdm"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mlongcalls -Wno-frame-address "
       CMAKE_EXE_LINKER_FLAGS: ""
@@ -712,15 +712,15 @@ events:
       variable: "CMAKE_HAVE_PTHREADS_CREATE"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-ep8a4w'
+        Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-lgxfdm'
         
-        Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_1643f
-        [1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe   -mlongcalls -Wno-frame-address  -DCHECK_FUNCTION_EXISTS=pthread_create -o CMakeFiles/cmTC_1643f.dir/CheckFunctionExists.c.obj -c C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-ep8a4w/CheckFunctionExists.c
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  -DCHECK_FUNCTION_EXISTS=pthread_create  CMakeFiles/cmTC_1643f.dir/CheckFunctionExists.c.obj -o cmTC_1643f  -lpthreads && cd ."
-        FAILED: cmTC_1643f 
-        C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  -DCHECK_FUNCTION_EXISTS=pthread_create  CMakeFiles/cmTC_1643f.dir/CheckFunctionExists.c.obj -o cmTC_1643f  -lpthreads && cd ."
+        Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_c41f9
+        [1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe   -mlongcalls -Wno-frame-address  -DCHECK_FUNCTION_EXISTS=pthread_create -o CMakeFiles/cmTC_c41f9.dir/CheckFunctionExists.c.obj -c C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-lgxfdm/CheckFunctionExists.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  -DCHECK_FUNCTION_EXISTS=pthread_create  CMakeFiles/cmTC_c41f9.dir/CheckFunctionExists.c.obj -o cmTC_c41f9  -lpthreads && cd ."
+        FAILED: cmTC_c41f9 
+        C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  -DCHECK_FUNCTION_EXISTS=pthread_create  CMakeFiles/cmTC_c41f9.dir/CheckFunctionExists.c.obj -o cmTC_c41f9  -lpthreads && cd ."
         c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: cannot find -lpthreads: No such file or directory\x0d
-        c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: CMakeFiles/cmTC_1643f.dir/CheckFunctionExists.c.obj:(.literal+0x0): warning: pthread_create is not implemented and will always fail\x0d
+        c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: CMakeFiles/cmTC_c41f9.dir/CheckFunctionExists.c.obj:(.literal+0x0): warning: pthread_create is not implemented and will always fail\x0d
         collect2.exe: error: ld returned 1 exit status
         ninja: build stopped: subcommand failed.
         
@@ -735,8 +735,8 @@ events:
     checks:
       - "Looking for pthread_create in pthread"
     directories:
-      source: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-sulthf"
-      binary: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-sulthf"
+      source: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-01docl"
+      binary: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-01docl"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mlongcalls -Wno-frame-address "
       CMAKE_EXE_LINKER_FLAGS: ""
@@ -745,15 +745,15 @@ events:
       variable: "CMAKE_HAVE_PTHREAD_CREATE"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-sulthf'
+        Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-01docl'
         
-        Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_c877d
-        [1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe   -mlongcalls -Wno-frame-address  -DCHECK_FUNCTION_EXISTS=pthread_create -o CMakeFiles/cmTC_c877d.dir/CheckFunctionExists.c.obj -c C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-sulthf/CheckFunctionExists.c
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  -DCHECK_FUNCTION_EXISTS=pthread_create  CMakeFiles/cmTC_c877d.dir/CheckFunctionExists.c.obj -o cmTC_c877d  -lpthread && cd ."
-        FAILED: cmTC_c877d 
-        C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  -DCHECK_FUNCTION_EXISTS=pthread_create  CMakeFiles/cmTC_c877d.dir/CheckFunctionExists.c.obj -o cmTC_c877d  -lpthread && cd ."
+        Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_8a9b9
+        [1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe   -mlongcalls -Wno-frame-address  -DCHECK_FUNCTION_EXISTS=pthread_create -o CMakeFiles/cmTC_8a9b9.dir/CheckFunctionExists.c.obj -c C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-01docl/CheckFunctionExists.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  -DCHECK_FUNCTION_EXISTS=pthread_create  CMakeFiles/cmTC_8a9b9.dir/CheckFunctionExists.c.obj -o cmTC_8a9b9  -lpthread && cd ."
+        FAILED: cmTC_8a9b9 
+        C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  -DCHECK_FUNCTION_EXISTS=pthread_create  CMakeFiles/cmTC_8a9b9.dir/CheckFunctionExists.c.obj -o cmTC_8a9b9  -lpthread && cd ."
         c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: cannot find -lpthread: No such file or directory\x0d
-        c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: CMakeFiles/cmTC_c877d.dir/CheckFunctionExists.c.obj:(.literal+0x0): warning: pthread_create is not implemented and will always fail\x0d
+        c:/users/tabre/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/12.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: CMakeFiles/cmTC_8a9b9.dir/CheckFunctionExists.c.obj:(.literal+0x0): warning: pthread_create is not implemented and will always fail\x0d
         collect2.exe: error: ld returned 1 exit status
         ninja: build stopped: subcommand failed.
         
@@ -768,8 +768,8 @@ events:
     checks:
       - "Performing Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS"
     directories:
-      source: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-0gzh2a"
-      binary: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-0gzh2a"
+      source: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-v0f9bz"
+      binary: "C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-v0f9bz"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mlongcalls -Wno-frame-address  -Wall -Wextra -Wwrite-strings -Wmissing-prototypes -Wformat=2 -Wno-format-nonliteral -Wvla -Wlogical-op -Wshadow"
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -779,11 +779,11 @@ events:
       variable: "C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-0gzh2a'
+        Change Dir: 'C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-v0f9bz'
         
-        Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_d5218
-        [1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -DC_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS  -mlongcalls -Wno-frame-address  -Wall -Wextra -Wwrite-strings -Wmissing-prototypes -Wformat=2 -Wno-format-nonliteral -Wvla -Wlogical-op -Wshadow    -Wformat-signedness -o CMakeFiles/cmTC_d5218.dir/src.c.obj -c C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-0gzh2a/src.c
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  -Wall -Wextra -Wwrite-strings -Wmissing-prototypes -Wformat=2 -Wno-format-nonliteral -Wvla -Wlogical-op -Wshadow  CMakeFiles/cmTC_d5218.dir/src.c.obj -o cmTC_d5218   && cd ."
+        Run Build Command(s): C:/Users/tabre/.espressif/tools/ninja/1.12.1/ninja.exe -v cmTC_d4a6f
+        [1/2] C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -DC_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS  -mlongcalls -Wno-frame-address  -Wall -Wextra -Wwrite-strings -Wmissing-prototypes -Wformat=2 -Wno-format-nonliteral -Wvla -Wlogical-op -Wshadow    -Wformat-signedness -o CMakeFiles/cmTC_d4a6f.dir/src.c.obj -c C:/Users/tabre/Documents/LiveCoaching/captive_portal/build/CMakeFiles/CMakeScratch/TryCompile-v0f9bz/src.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Users\\tabre\\.espressif\\tools\\xtensa-esp32-elf\\esp-12.2.0_20230208\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe -mlongcalls -Wno-frame-address  -Wall -Wextra -Wwrite-strings -Wmissing-prototypes -Wformat=2 -Wno-format-nonliteral -Wvla -Wlogical-op -Wshadow  CMakeFiles/cmTC_d4a6f.dir/src.c.obj -o cmTC_d4a6f   && cd ."
         
       exitCode: 0
 ...
