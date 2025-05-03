@@ -28,6 +28,12 @@ void time_sync_notification_cb(struct timeval *tv)
 {
     ESP_LOGI(TAG, "Notification of a time synchronization event");
 }
+void configureTimeZone()
+{
+    // Set timezone to India Standard Time (IST = UTC+5:30)
+    setenv("TZ", "IST-5:30", 1);
+    tzset();
+}
 
 void time_sync_init(void)
 {
@@ -59,6 +65,8 @@ void time_sync_init(void)
     localtime_r(&now, &timeinfo);
     strftime(strftime_buf, sizeof(strftime_buf), "%c", &timeinfo);
     ESP_LOGI(TAG, "The current date/time in Shanghai is: %s", strftime_buf);
+    configureTimeZone(); // <-- Set the timezone here
+
 
 }
 

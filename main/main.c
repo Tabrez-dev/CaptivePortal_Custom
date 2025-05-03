@@ -19,6 +19,7 @@
 #include "lwip/inet.h"
 #include "esp_ota_ops.h"
 
+
 #include "esp_http_server.h"
 #include "dns_server.h"
 #include "app_station.h"
@@ -90,6 +91,10 @@ static esp_err_t http_server_app_js_handler(httpd_req_t *req);
 static esp_err_t http_server_favicon_handler(httpd_req_t *req);
 static esp_err_t http_server_ota_update_handler(httpd_req_t *req);
 static esp_err_t http_server_ota_status_handler(httpd_req_t *req);
+static esp_err_t http_server_ssid_handler(httpd_req_t *req);
+static esp_err_t http_server_time_handler(httpd_req_t *req);
+//static esp_err_t http_server_sensor_handler(httpd_req_t *req);
+
 static esp_err_t http_404_error_handler(httpd_req_t *req, httpd_err_code_t err);
 
 void app_main(void)
@@ -104,6 +109,12 @@ void app_main(void)
 
     // Initialize NVS needed by Wi-Fi
     ESP_ERROR_CHECK(nvs_flash_init());
+
+    // lib_params_init();
+
+    // uint16_t tank_col = pc_get_u16(TANK_PERCENTAGE_COLLECTION);
+    // ESP_LOGI(TAG, "Tank Collection: %d", tank_col);
+    // pc_set_u16(TANK_PERCENTAGE_COLLECTION, ++tank_col);
 
     // Initialize networking stack
     ESP_ERROR_CHECK(esp_netif_init());
@@ -142,13 +153,11 @@ void app_main(void)
 
     ESP_LOGI(TAG, "wifi_init_softap finished. SSID:'%s' password:'%s'",
              EXAMPLE_ESP_WIFI_AP_SSID, EXAMPLE_ESP_WIFI_PASS);
-    
-    time_sync_init();
-    ESP_LOGI(TAG, "Time Sync Initialized");
-
+    //time_sync_init();
     while (1)
     {
         http_server_monitor();
+        //lib_params_process();
         vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
 }
@@ -242,6 +251,7 @@ static void wifi_event_handler(void *arg, esp_event_base_t event_base, int32_t e
 static void start_webserver(void)
 {
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
+    config.max_uri_handlers = 9;
     config.max_open_sockets = 13;
     config.lru_purge_enable = true;
 
@@ -346,6 +356,24 @@ static void handler_initialize(void)
             .method = HTTP_POST,
             .handler = http_server_ota_status_handler,
             .user_ctx = NULL};
+    httpd_uri_t ssid_handler =
+        {
+            .uri = "/apSSID",
+            .method = HTTP_GET,
+            .handler = http_server_ssid_handler,
+            .user_ctx = NULL};
+    httpd_uri_t time_handler =
+        {
+            .uri = "/localTime",
+            .method = HTTP_GET,
+            .handler = http_server_time_handler,
+            .user_ctx = NULL};
+    // httpd_uri_t sensor_handler = {
+    // .uri       = "/Sensor",
+    // .method    = HTTP_GET,
+    // .handler   = http_server_sensor_handler,
+    // .user_ctx  = NULL};
+
 
     httpd_register_uri_handler(http_server_handle, &jquery_js);
     httpd_register_uri_handler(http_server_handle, &index_html);
@@ -354,6 +382,9 @@ static void handler_initialize(void)
     httpd_register_uri_handler(http_server_handle, &favicon_ico);
     httpd_register_uri_handler(http_server_handle, &ota_update);
     httpd_register_uri_handler(http_server_handle, &ota_status);
+    httpd_register_uri_handler(http_server_handle, &ssid_handler);
+    httpd_register_uri_handler(http_server_handle, &time_handler);
+   // httpd_register_uri_handler(http_server_handle, &sensor_handler);
 }
 
 /*
@@ -632,6 +663,88 @@ static esp_err_t http_server_ota_status_handler(httpd_req_t *req)
 
     return ESP_OK;
 }
+
+static esp_err_t http_server_ssid_handler(httpd_req_t *req)
+{
+    char ssid[100];
+    ESP_LOGI(TAG, "SSID Requested");
+    sprintf(ssid, "{\"ssid\":\"%s\"}", EXAMPLE_ESP_WIFI_AP_SSID);
+
+    httpd_resp_set_type(req, "application/json");
+    httpd_resp_send(req, ssid, strlen(ssid));
+
+    return ESP_OK;
+}
+#include<inttypes.h>
+static esp_err_t http_server_time_handler(httpd_req_t *req)
+{
+    char time_response[100];
+    time_t now;
+    struct tm timeinfo;
+
+    ESP_LOGI(TAG, "Time Requested");
+
+    // Check if local time is set
+    if (!g_is_local_time_set)
+    {
+        ESP_LOGI(TAG, "Local time not set. Synchronizing...");
+        time_sync_init(); // Synchronizes time & sets timezone (e.g., to IST)
+        g_is_local_time_set = true;
+    }
+
+    // Get current time (localtime_r will apply timezone automatically)
+    time(&now);
+    localtime_r(&now, &timeinfo);
+
+    // Log raw UTC time
+    ESP_LOGI(TAG, "Raw UTC Time: %" PRId64, (int64_t)now);
+
+    // Format time as JSON
+    if (timeinfo.tm_year > (1970 - 1900)) // Ensure valid time
+    {
+        strftime(time_response, sizeof(time_response), "{\"time\":\"%Y-%m-%d %I:%M:%S %p\"}", &timeinfo);
+        ESP_LOGI(TAG, "Formatted Local Time: %s", time_response);
+    }
+    else
+    {
+        snprintf(time_response, sizeof(time_response), "{\"error\":\"Time not synchronized\"}");
+    }
+
+    httpd_resp_set_type(req, "application/json");
+    httpd_resp_send(req, time_response, strlen(time_response));
+
+    return ESP_OK;
+}
+// #include "esp_log.h"
+// #include "esp_err.h"
+// #include "driver/temperature_sensor.h"
+// static esp_err_t http_server_sensor_handler(httpd_req_t *req)
+// {
+//     temperature_sensor_handle_t temp_sensor = NULL;
+//     temperature_sensor_config_t temp_sensor_config = {
+//         .range_min = 10,
+//         .range_max = 50
+//     };
+    
+//     ESP_ERROR_CHECK(temperature_sensor_install(&temp_sensor_config, &temp_sensor));
+//     ESP_ERROR_CHECK(temperature_sensor_enable(temp_sensor));
+
+//     float temp_value = 0;
+//     ESP_ERROR_CHECK(temperature_sensor_get_celsius(temp_sensor, &temp_value));
+
+//     ESP_ERROR_CHECK(temperature_sensor_disable(temp_sensor));
+//     ESP_ERROR_CHECK(temperature_sensor_uninstall(temp_sensor));
+
+//     // Create a JSON response (no humidity available)
+//     char json_response[100];
+//     snprintf(json_response, sizeof(json_response),
+//              "{\"temp\":\"%.2f\",\"humidity\":\"N/A\"}", temp_value);
+
+//     httpd_resp_set_type(req, "application/json");
+//     httpd_resp_send(req, json_response, strlen(json_response));
+
+//     return ESP_OK;
+// }
 
 // HTTP Error (404) Handler - Redirects all requests to the root page
 static esp_err_t http_404_error_handler(httpd_req_t *req, httpd_err_code_t err)

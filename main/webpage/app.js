@@ -316,7 +316,7 @@ function startLocalTimeInterval()
 function getLocalTime()
 {
   $.getJSON('/localTime', function(data) {
-    // console.log(data);   // used for debugging
+    console.log(data);   // used for debugging
     $("#local_time").text(data["time"]);
   });
 }
@@ -325,7 +325,7 @@ function getLocalTime()
 function getSSID()
 {
   $.getJSON('/apSSID', function(data) {
-    // console.log(data);   // used for debugging
+    console.log(data);   // used for debugging
     $("#ap_ssid").text(data["ssid"]);
   });
 }
