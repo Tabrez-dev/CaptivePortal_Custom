@@ -146,6 +146,7 @@ function getSensorValues()
 // Sets the Interval for getting the updated Sensor Values
 function startSensorInterval()
 {
+  //console.log("Sensor Data Requested"); // Changed to JavaScript console.log
   // Call this function every 5 seconds
   setInterval(getSensorValues, 5000);
 }
