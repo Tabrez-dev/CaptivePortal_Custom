@@ -9,6 +9,9 @@
 #include "lwip/ip4_addr.h"
 #include "lwip/inet.h"
 #include "app_wifi.h"
+#include "nvs_flash.h"
+#include "esp_netif.h"
+#include "esp_event.h"
 
 static const char *TAG = "app_wifi";
 
@@ -22,6 +25,17 @@ static int s_retry_num = 0;
 
 void app_wifi_init(void)
 {
+    // Initialize NVS
+    esp_err_t ret = nvs_flash_init();
+    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+        ESP_ERROR_CHECK(nvs_flash_erase());
+        ESP_ERROR_CHECK(nvs_flash_init());
+    }
+
+    // Initialize networking stack
+    ESP_ERROR_CHECK(esp_netif_init());
+    ESP_ERROR_CHECK(esp_event_loop_create_default());
+
     // Initialize the event group
     s_wifi_event_group = xEventGroupCreate();
     
@@ -43,6 +57,8 @@ void app_wifi_init(void)
     // Start WiFi
     ESP_ERROR_CHECK(esp_wifi_start());
 }
+
+// System initialization is now handled in app_wifi_init()
 
 void wifi_init_sta(void)
 {
