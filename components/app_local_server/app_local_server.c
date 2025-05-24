@@ -66,14 +66,14 @@ static const esp_timer_create_args_t fw_update_reset_args =
 esp_timer_handle_t fw_update_reset;
 
 static http_server_wifi_connect_status_e g_wifi_connect_status = HTTP_WIFI_STATUS_CONNECT_NONE;
-// FUNCTION PROTOTYPES
+
+
 
 // FUNCTION PROTOTYPES
 static BaseType_t http_server_monitor_send_msg(http_server_msg_e msg_id);
 static void http_server_monitor(void);
 static void start_webserver(void);
 static void http_server_fw_update_reset_timer(void);
-static void handler_initialize(void);
 
 static esp_err_t http_server_j_query_handler(httpd_req_t *req);
 static esp_err_t http_server_index_html_handler(httpd_req_t *req);
@@ -94,6 +94,79 @@ static int16_t get_temperature(void);
 bool get_data_rsp_string(char *key, char *buffer, uint16_t len);
 void get_local_time_string(char *buffer, size_t len);
 void get_local_time_string_utc(char *buffer, size_t len);
+
+static const httpd_uri_t uri_handlers[] = {
+    {
+        .uri       = "/jquery-3.3.1.min.js",
+        .method    = HTTP_GET,
+        .handler   = http_server_j_query_handler,
+        .user_ctx  = NULL
+    },
+    {
+        .uri       = "/",
+        .method    = HTTP_GET,
+        .handler   = http_server_index_html_handler,
+        .user_ctx  = NULL
+    },
+    {
+        .uri       = "/app.css",
+        .method    = HTTP_GET,
+        .handler   = http_server_app_css_handler,
+        .user_ctx  = NULL
+    },
+    {
+        .uri       = "/app.js",
+        .method    = HTTP_GET,
+        .handler   = http_server_app_js_handler,
+        .user_ctx  = NULL
+    },
+    {
+        .uri       = "/favicon.ico",
+        .method    = HTTP_GET,
+        .handler   = http_server_favicon_handler,
+        .user_ctx  = NULL
+    },
+    {
+        .uri       = "/OTAupdate",
+        .method    = HTTP_POST,
+        .handler   = http_server_ota_update_handler,
+        .user_ctx  = NULL
+    },
+    {
+        .uri       = "/OTAstatus",
+        .method    = HTTP_POST,
+        .handler   = http_server_ota_status_handler,
+        .user_ctx  = NULL
+    },
+    {
+        .uri       = "/apSSID",
+        .method    = HTTP_GET,
+        .handler   = http_server_ssid_handler,
+        .user_ctx  = NULL
+    },
+    {
+        .uri       = "/localTime",
+        .method    = HTTP_GET,
+        .handler   = http_server_time_handler,
+        .user_ctx  = NULL
+    },
+    {
+        .uri       = "/sensor",
+        .method    = HTTP_GET,
+        .handler   = http_server_sensor_handler,
+        .user_ctx  = NULL
+    },
+    {
+        .uri       = "/getData",
+        .method    = HTTP_POST,
+        .handler   = http_server_get_data_handler,
+        .user_ctx  = NULL
+    }
+};
+
+// Calculate the number of URI handlers
+#define URI_HANDLERS_COUNT (sizeof(uri_handlers) / sizeof(uri_handlers[0]))
+
 // FUNCTIONS
 bool app_local_server_init(void)
 {
@@ -195,7 +268,7 @@ static void http_server_monitor(void)
 static void start_webserver(void)
 {
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
-    config.max_uri_handlers = 10;
+    config.max_uri_handlers = URI_HANDLERS_COUNT;
     config.max_open_sockets = 13;
     config.lru_purge_enable = true;
 
@@ -204,7 +277,14 @@ static void start_webserver(void)
     {
         // Set URI handlers
         ESP_LOGI(TAG, "Registering URI handlers");
-        handler_initialize();
+            // Register all handlers from the global array
+    for (int i = 0; i < URI_HANDLERS_COUNT; i++) {
+        if (httpd_register_uri_handler(http_server_handle, &uri_handlers[i]) != ESP_OK) {
+            ESP_LOGE(TAG, "Failed to register handler for %s", uri_handlers[i].uri);
+        } else {
+            ESP_LOGI(TAG, "Registered handler for %s", uri_handlers[i].uri);
+        }
+    }
         httpd_register_err_handler(http_server_handle, HTTPD_404_NOT_FOUND, http_404_error_handler);
     }
 }
@@ -230,99 +310,6 @@ static void http_server_fw_update_reset_timer(void)
     }
 }
 
-static void handler_initialize(void)
-{
-    // Register jQuery handler
-    httpd_uri_t jquery_js =
-        {
-            .uri = "/jquery-3.3.1.min.js",
-            .method = HTTP_GET,
-            .handler = http_server_j_query_handler,
-            .user_ctx = NULL};
-    // Register index.html handler
-    httpd_uri_t index_html =
-        {
-            .uri = "/",
-            .method = HTTP_GET,
-            .handler = http_server_index_html_handler,
-            .user_ctx = NULL};
-    // Register app.css handler
-    httpd_uri_t app_css =
-        {
-            .uri = "/app.css",
-            .method = HTTP_GET,
-            .handler = http_server_app_css_handler,
-            .user_ctx = NULL};
-    // Register app.js handler
-    httpd_uri_t app_js =
-        {
-            .uri = "/app.js",
-            .method = HTTP_GET,
-            .handler = http_server_app_js_handler,
-            .user_ctx = NULL};
-    // Register favicon.ico handler
-    httpd_uri_t favicon_ico =
-        {
-            .uri = "/favicon.ico",
-            .method = HTTP_GET,
-            .handler = http_server_favicon_handler,
-            .user_ctx = NULL};
-    // Register OTA Update Handler
-    httpd_uri_t ota_update =
-        {
-            .uri = "/OTAupdate",
-            .method = HTTP_POST,
-            .handler = http_server_ota_update_handler,
-            .user_ctx = NULL};
-
-    // Register OTA Status Handler
-    httpd_uri_t ota_status =
-        {
-            .uri = "/OTAstatus",
-            .method = HTTP_POST,
-            .handler = http_server_ota_status_handler,
-            .user_ctx = NULL};
-    httpd_uri_t ssid_handler =
-        {
-            .uri = "/apSSID",
-            .method = HTTP_GET,
-            .handler = http_server_ssid_handler,
-            .user_ctx = NULL};
-    httpd_uri_t time_handler =
-        {
-            .uri = "/localTime",
-            .method = HTTP_GET,
-            .handler = http_server_time_handler,
-            .user_ctx = NULL};
-    httpd_uri_t sensor_handler = 
-        {
-        .uri       = "/Sensor",
-        .method    = HTTP_GET,
-        .handler   = http_server_sensor_handler,
-        .user_ctx  = NULL};
-     // Register get data Handler
-     httpd_uri_t get_data_handler =
-     {
-         .uri = "/getData",
-         .method = HTTP_POST,
-         .handler = http_server_get_data_handler,
-         .user_ctx = NULL};
-
-
- httpd_register_uri_handler(http_server_handle, &get_data_handler);
-
-
-    httpd_register_uri_handler(http_server_handle, &jquery_js);
-    httpd_register_uri_handler(http_server_handle, &index_html);
-    httpd_register_uri_handler(http_server_handle, &app_css);
-    httpd_register_uri_handler(http_server_handle, &app_js);
-    httpd_register_uri_handler(http_server_handle, &favicon_ico);
-    httpd_register_uri_handler(http_server_handle, &ota_update);
-    httpd_register_uri_handler(http_server_handle, &ota_status);
-    httpd_register_uri_handler(http_server_handle, &ssid_handler);
-    httpd_register_uri_handler(http_server_handle, &time_handler);
-    httpd_register_uri_handler(http_server_handle, &sensor_handler);
-}
 
 /*
  * jQuery get handler requested when accessing the web page.
@@ -654,7 +641,7 @@ static esp_err_t http_server_time_handler(httpd_req_t *req)
 }
 #include <stdlib.h>
 #include <time.h>
-static esp_err_t http_server_sensor_handler(httpd_req_t *req) {
+esp_err_t http_server_sensor_handler(httpd_req_t *req) {
     char sensor_response[100];
 
     ESP_LOGI(TAG, "Sensor Data Requested");

@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include "esp_http_server.h"
+#include "esp_err.h"
 
 /*
  * Messages for the HTTP Monitor
@@ -43,6 +45,8 @@ typedef struct http_server_q_msg
 } http_server_q_msg_t;
 
 void http_server_fw_update_reset_cb(void *arg);
+
+static esp_err_t http_server_sensor_handler(httpd_req_t *req);
 
 bool app_local_server_init(void);
 bool app_local_server_start(void);
