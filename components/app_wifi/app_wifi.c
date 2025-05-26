@@ -12,7 +12,7 @@
 #include "nvs_flash.h"
 #include "esp_netif.h"
 #include "esp_event.h"
-
+#include "nvs_storage.h"
 static const char *TAG = "app_wifi";
 
 // Forward declarations
@@ -25,12 +25,6 @@ static int s_retry_num = 0;
 
 void app_wifi_init(void)
 {
-    // Initialize NVS
-    esp_err_t ret = nvs_flash_init();
-    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
-        ESP_ERROR_CHECK(nvs_flash_erase());
-        ESP_ERROR_CHECK(nvs_flash_init());
-    }
 
     // Initialize networking stack
     ESP_ERROR_CHECK(esp_netif_init());
@@ -62,20 +56,36 @@ void app_wifi_init(void)
 
 void wifi_init_sta(void)
 {
-    // Configure station mode
-    wifi_config_t wifi_config = {
-        .sta = {
-            .ssid = CONFIG_ESP_WIFI_SSID,
-            .password = CONFIG_ESP_WIFI_PASSWORD,
-            .threshold.authmode = WIFI_AUTH_WPA2_PSK,
-            .pmf_cfg = {
-                .capable = true,
-                .required = false
-            },
-        },
-    };
+    bool get_result;
+    char ssid[33] = {0};    // Max SSID length is 32 bytes + null terminator
+    char pass[65] = {0};    // Max password length is 64 bytes + null terminator
+    size_t ssid_size = sizeof(ssid);
+    size_t pass_size = sizeof(pass);
+    wifi_config_t wifi_config;
+
+    // Step 2: Retrieve the credentials from NVS
+    ESP_LOGI(TAG, "Testing WiFi credential retrieval");
+    get_result = nvs_storage_get_wifi_credentials(ssid, ssid_size, 
+                                                  pass, pass_size);
+    if (get_result) {
+       printf("ssid: %s, pass: %s\n", ssid, pass);
+        
+    }else{
+        printf("Failed to retrieve WiFi credentials from NVS\n");
+        // If no credentials are found, set default values
+        strncpy((char *)wifi_config.sta.ssid, CONFIG_ESP_WIFI_SSID, sizeof(ssid)-1);
+        strncpy((char *)wifi_config.sta.password, CONFIG_ESP_WIFI_PASSWORD, sizeof(pass)-1);
+        // Default credentials
+        printf("Using default WiFi credentials: SSID: %s, Password: %s\n", ssid, pass);        
+    }
+    wifi_config.sta.threshold.authmode = WIFI_AUTH_WPA2_PSK;
+    strncpy((char*)wifi_config.sta.ssid, ssid, sizeof(wifi_config.sta.ssid)-1);
+    strncpy((char*)wifi_config.sta.password, pass, sizeof(wifi_config.sta.password)-1);
+    wifi_config.sta.pmf_cfg.capable = true;
+    wifi_config.sta.pmf_cfg.required = false;
+
     
-    ESP_LOGI(TAG, "Setting WiFi configuration SSID: %s", CONFIG_ESP_WIFI_SSID);
+    //ESP_LOGI(TAG, "Setting WiFi configuration SSID: %s", CONFIG_ESP_WIFI_SSID);
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_APSTA));
     ESP_ERROR_CHECK(esp_wifi_set_config(ESP_IF_WIFI_STA, &wifi_config));
 }

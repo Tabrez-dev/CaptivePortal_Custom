@@ -1,9 +1,11 @@
 #include "app_local_server.h"
 #include "app_time_sync.h"
 #include "app_wifi.h"
+#include "nvs_storage.h"
 
 void app_main(void)
 {
+    nvs_storage_init();
     // Initialize WiFi first (this sets up the network stack)
     app_wifi_init();
     

@@ -224,7 +224,7 @@ function checkCredentials()
 
   selectedSSID = $("#connect_ssid").val();
   pswd = $("#connect_pswd").val();
-  // console.log("SSID:" + selectedSSID);   // used for debugging
+  console.log("SSID:" + selectedSSID);   // used for debugging
 
   // SSID shouldn't be blank
   if( selectedSSID == "" )

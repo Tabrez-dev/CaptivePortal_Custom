@@ -14,11 +14,15 @@
 #include "esp_timer.h"
 #include "esp_ota_ops.h"
 #include <cJSON.h>
-//#include "time_sync.h"
 #include "time.h"
 #include "app_local_server.h"
 #include "esp_log.h"
 #include "dns_server.h"
+#include "nvs_flash.h"
+#include "nvs.h"
+#include "esp_wifi.h"
+#include "esp_netif.h"
+#include "nvs_storage.h"
 
 // DEFINES
 #define HTTP_SERVER_MAX_URI_HANDLERS (20u)
@@ -67,8 +71,6 @@ esp_timer_handle_t fw_update_reset;
 
 static http_server_wifi_connect_status_e g_wifi_connect_status = HTTP_WIFI_STATUS_CONNECT_NONE;
 
-
-
 // FUNCTION PROTOTYPES
 static BaseType_t http_server_monitor_send_msg(http_server_msg_e msg_id);
 static void http_server_monitor(void);
@@ -85,6 +87,10 @@ static esp_err_t http_server_ota_status_handler(httpd_req_t *req);
 static esp_err_t http_server_ssid_handler(httpd_req_t *req);
 static esp_err_t http_server_time_handler(httpd_req_t *req);
 static esp_err_t http_server_sensor_handler(httpd_req_t *req);
+static esp_err_t http_server_wifi_connect_handler(httpd_req_t *req);
+static esp_err_t http_server_wifi_connect_status_handler(httpd_req_t *req);
+static esp_err_t http_server_wifi_connect_info_handler(httpd_req_t *req);
+static esp_err_t http_server_wifi_disconnect_handler(httpd_req_t *req);
 
 static esp_err_t http_404_error_handler(httpd_req_t *req, httpd_err_code_t err);
 
@@ -151,7 +157,7 @@ static const httpd_uri_t uri_handlers[] = {
         .user_ctx  = NULL
     },
     {
-        .uri       = "/sensor",
+        .uri       = "/Sensor",
         .method    = HTTP_GET,
         .handler   = http_server_sensor_handler,
         .user_ctx  = NULL
@@ -160,6 +166,30 @@ static const httpd_uri_t uri_handlers[] = {
         .uri       = "/getData",
         .method    = HTTP_POST,
         .handler   = http_server_get_data_handler,
+        .user_ctx  = NULL
+    },
+    {
+        .uri       = "/wifiConnect",
+        .method    = HTTP_POST,
+        .handler   = http_server_wifi_connect_handler,
+        .user_ctx  = NULL
+    },
+    {
+        .uri       = "/wifiConnectStatus",
+        .method    = HTTP_POST,
+        .handler   = http_server_wifi_connect_status_handler,
+        .user_ctx  = NULL
+    },
+    {
+        .uri       = "/wifiConnectInfo",
+        .method    = HTTP_GET,
+        .handler   = http_server_wifi_connect_info_handler,
+        .user_ctx  = NULL
+    },
+    {
+        .uri       = "/wifiDisconnect",
+        .method    = HTTP_DELETE,
+        .handler   = http_server_wifi_disconnect_handler,
         .user_ctx  = NULL
     }
 };
@@ -641,7 +671,7 @@ static esp_err_t http_server_time_handler(httpd_req_t *req)
 }
 #include <stdlib.h>
 #include <time.h>
-esp_err_t http_server_sensor_handler(httpd_req_t *req) {
+static esp_err_t http_server_sensor_handler(httpd_req_t *req) {
     char sensor_response[100];
 
     ESP_LOGI(TAG, "Sensor Data Requested");
@@ -893,4 +923,128 @@ static int16_t get_humidity(void)
     // return random number between 0 and 100
     return (rand() % 100);
 }
- 
+
+static esp_err_t http_server_wifi_connect_handler(httpd_req_t *req)
+{
+    ESP_LOGI(TAG, "WiFi Connect Request Received");
+    // Variables for SSID and password
+    char ssid[32] = {0};
+    char password[64] = {0};
+    esp_err_t error;
+    
+    // Extract SSID from header
+    error = httpd_req_get_hdr_value_str(req, "my-connect-ssid", ssid, sizeof(ssid) - 1);
+    if (error != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to get SSID header");
+        httpd_resp_send_500(req);
+        return ESP_FAIL;
+    }
+    
+    // Extract password from header
+    error = httpd_req_get_hdr_value_str(req, "my-connect-pswd", password, sizeof(password) - 1);
+    if (error != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to get password header");
+        httpd_resp_send_500(req);
+        return ESP_FAIL;
+    }
+    
+    printf("Received Wi-Fi credentials - SSID: %s, Password: %s\n", ssid, password);
+    nvs_storage_set_wifi_credentials(ssid,password);    
+    
+    // Configure WiFi connection
+    wifi_config_t wifi_config = {0};
+    strncpy((char*)wifi_config.sta.ssid, ssid, sizeof(wifi_config.sta.ssid) - 1);
+    strncpy((char*)wifi_config.sta.password, password, sizeof(wifi_config.sta.password) - 1);
+    
+    // Set WiFi configuration
+    ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_APSTA));
+    ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config));
+    
+    // Connect to the AP
+    ESP_ERROR_CHECK(esp_wifi_connect());
+    
+    // Update connection status
+    http_server_monitor_send_msg(HTTP_MSG_WIFI_CONNECT_INIT);
+    
+    // Send success response
+    httpd_resp_set_type(req, "application/json");
+    httpd_resp_send(req, "{\"status\":\"connecting\"}", HTTPD_RESP_USE_STRLEN);
+
+    return ESP_OK;
+}
+
+
+static esp_err_t http_server_wifi_connect_status_handler(httpd_req_t *req)
+{
+    char response[50];
+    ESP_LOGI(TAG, "WiFi Connect Status Requested");
+    
+    // Create JSON response with current connection status
+    snprintf(response, sizeof(response), "{\"wifi_connect_status\":%d}", g_wifi_connect_status);
+    
+    httpd_resp_set_type(req, "application/json");
+    httpd_resp_send(req, response, strlen(response));
+    
+    return ESP_OK;
+}
+
+static esp_err_t http_server_wifi_connect_info_handler(httpd_req_t *req)
+{
+    // Only proceed if connected successfully
+    if (g_wifi_connect_status != HTTP_WIFI_STATUS_CONNECT_SUCCESS) {
+        httpd_resp_send_404(req);
+        return ESP_FAIL;
+    }
+    
+    wifi_ap_record_t ap_info;
+    esp_netif_ip_info_t ip_info;
+    char response[256];
+    
+    // Get the connected AP info
+    if (esp_wifi_sta_get_ap_info(&ap_info) != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to get AP info");
+        httpd_resp_send_500(req);
+        return ESP_FAIL;
+    }
+    
+    // Get IP info
+    esp_netif_t *netif = esp_netif_get_handle_from_ifkey("WIFI_STA_DEF");
+    if (netif == NULL || esp_netif_get_ip_info(netif, &ip_info) != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to get IP info");
+        httpd_resp_send_500(req);
+        return ESP_FAIL;
+    }
+    
+    // Convert IP addresses to strings
+    char ip[16], netmask[16], gateway[16];
+    esp_ip4addr_ntoa(&ip_info.ip, ip, sizeof(ip));
+    esp_ip4addr_ntoa(&ip_info.netmask, netmask, sizeof(netmask));
+    esp_ip4addr_ntoa(&ip_info.gw, gateway, sizeof(gateway));
+    
+    // Create JSON response
+    snprintf(response, sizeof(response), 
+             "{\"ap\":\"%s\",\"ip\":\"%s\",\"netmask\":\"%s\",\"gw\":\"%s\"}", 
+             (char*)ap_info.ssid, ip, netmask, gateway);
+    
+    httpd_resp_set_type(req, "application/json");
+    httpd_resp_send(req, response, strlen(response));
+    
+    return ESP_OK;
+}
+
+static esp_err_t http_server_wifi_disconnect_handler(httpd_req_t *req)
+{
+    ESP_LOGI(TAG, "WiFi Disconnect Requested");
+    
+    // Disconnect from the AP
+    esp_wifi_disconnect();
+    
+    // Update status via message queue
+    http_server_monitor_send_msg(HTTP_MSG_WIFI_USER_DISCONNECT);
+    
+    // Send confirmation response
+    httpd_resp_set_type(req, "application/json");
+    httpd_resp_send(req, "{\"status\":\"disconnected\"}", HTTPD_RESP_USE_STRLEN);
+    
+    return ESP_OK;
+}
