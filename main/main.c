@@ -2,6 +2,7 @@
 #include "app_time_sync.h"
 #include "app_wifi.h"
 #include "nvs_storage.h"
+#include "spi_ffs_storage.h"
 
 void app_main(void)
 {
@@ -15,7 +16,8 @@ void app_main(void)
     
     // Initialize time sync (requires network)
     app_time_sync_init();
-    
+    spiffs_storage_init();
+    //spi_ffs_storage_test();
     // Main loop
     while (1) {
         app_local_server_process();
