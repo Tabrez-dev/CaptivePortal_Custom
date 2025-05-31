@@ -17,7 +17,7 @@ void app_main(void)
     // Initialize time sync (requires network)
     app_time_sync_init();
     spiffs_storage_init();
-    //spi_ffs_storage_test();
+    spiffs_storage_test();
     // Main loop
     while (1) {
         app_local_server_process();

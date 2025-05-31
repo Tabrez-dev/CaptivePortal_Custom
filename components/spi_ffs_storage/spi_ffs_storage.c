@@ -82,53 +82,129 @@ void spiffs_storage_init(void)
 
 void spiffs_storage_test(void)
 {
-    // Use POSIX and C standard library functions to work with files.
-    // First create a file.
-    ESP_LOGI(TAG, "Opening file");
-    FILE *f = fopen("/spiffs/hello.txt", "w");
-    if (f == NULL)
-    {
-        ESP_LOGE(TAG, "Failed to open file for writing");
-        return;
+    ESP_LOGI(TAG, "[%s] Starting SPIFFS storage test suite", __func__);
+    
+    // 1. Test file creation
+    ESP_LOGI(TAG, "[%s]\n=== 1. Testing file creation ===", __func__);
+    const char *test_file = "/spiffs/test_file.txt";
+    const char *test_file2 = "/spiffs/test_file2.txt";
+    const char *test_rename = "/spiffs/renamed_file.txt";
+    
+    // Clean up any existing test files
+    ESP_LOGI(TAG, "[%s] Cleaning up any existing test files...", __func__);
+    spiffs_storage_delete_file(test_file);
+    spiffs_storage_delete_file(test_file2);
+    spiffs_storage_delete_file(test_rename);
+    
+    // 1. Test create_file
+    ESP_LOGI(TAG, "[%s] 1. Testing spiffs_storage_create_file...", __func__);
+    bool result = spiffs_storage_create_file(test_file);
+    ESP_LOGI(TAG, "[%s] 1. Create file %s: %s", __func__, test_file, result ? "SUCCESS" : "FAILED");
+    
+    // 2. Test file_exists
+    ESP_LOGI(TAG, "[%s]\n=== 2. Testing file existence ===", __func__);
+    bool exists = spiffs_storage_file_exists(test_file);
+    ESP_LOGI(TAG, "[%s] 2. File %s exists: %s", __func__, test_file, exists ? "YES" : "NO");
+    
+    // 3. Test file size
+    ESP_LOGI(TAG, "[%s]\n=== 3. Testing file size ===", __func__);
+    int32_t file_size = spiffs_storage_get_file_size(test_file);
+    ESP_LOGI(TAG, "[%s] 3. File size: %ld bytes", __func__, (long)file_size);
+    
+    // 4. Test writing to file (overwrite)
+    ESP_LOGI(TAG, "[%s]\n=== 4. Testing file writing (overwrite) ===", __func__);
+    const char *test_data = "This is a test line 1\nThis is a test line 2\n";
+    result = spiffs_storage_write_file(test_file, test_data, false);
+    ESP_LOGI(TAG, "[%s] 4. Write to file (overwrite): %s", __func__, result ? "SUCCESS" : "FAILED");
+    
+    // 5. Test appending to file
+    ESP_LOGI(TAG, "[%s]\n=== 5. Testing file appending ===", __func__);
+    const char *append_data = "This is an appended line\n";
+    result = spiffs_storage_write_file(test_file, append_data, true);
+    ESP_LOGI(TAG, "[%s] 5. Append to file: %s", __func__, result ? "SUCCESS" : "FAILED");
+    
+    // 6. Test reading entire file
+    ESP_LOGI(TAG, "[%s]\n=== 6. Testing file reading ===", __func__);
+    char read_buffer[256] = {0};
+    result = spiffs_storage_read_file(test_file, read_buffer, sizeof(read_buffer));
+    ESP_LOGI(TAG, "[%s] 6. Read file %s: %s", __func__, test_file, result ? "SUCCESS" : "FAILED");
+    if (result) {
+        ESP_LOGI(TAG, "[%s] 6. File content:\n%s", __func__, read_buffer);
     }
-    fprintf(f, "Hello World!\n");
-    fclose(f);
-    ESP_LOGI(TAG, "File written");
-
-    // Check if destination file exists before renaming
-    struct stat st;
-    if (stat("/spiffs/foo.txt", &st) == 0)
-    {
-        // Delete it if it exists
-        unlink("/spiffs/foo.txt");
+    
+    // 7. Test reading first line using spiffs_storage_read_file_line
+    ESP_LOGI(TAG, "[%s]\n=== 7. Testing spiffs_storage_read_file_line ===", __func__);
+    char line_buffer[128] = {0};
+    
+    bool read_result = spiffs_storage_read_file_line(test_file, line_buffer, sizeof(line_buffer));
+    if (read_result) {
+        ESP_LOGI(TAG, "[%s] 7. First line: %s", __func__, line_buffer);
+    } else {
+        ESP_LOGE(TAG, "[%s] 7. Failed to read first line using spiffs_storage_read_file_line", __func__);
     }
-
-    // Rename original file
-    ESP_LOGI(TAG, "Renaming file");
-    if (rename("/spiffs/hello.txt", "/spiffs/foo.txt") != 0)
-    {
-        ESP_LOGE(TAG, "Rename failed");
-        return;
+    
+    // 8. Test file renaming
+    ESP_LOGI(TAG, "[%s]\n=== 8. Testing file renaming ===", __func__);
+    result = spiffs_storage_rename_file(test_file, test_rename);
+    ESP_LOGI(TAG, "[%s] 8. Rename %s to %s: %s", __func__, test_file, test_rename, result ? "SUCCESS" : "FAILED");
+    
+    // 9. Verify rename by checking existence
+    exists = spiffs_storage_file_exists(test_rename);
+    ESP_LOGI(TAG, "[%s] 9. Renamed file exists: %s", __func__, exists ? "YES" : "NO");
+    
+    // 10. Test file listing
+    ESP_LOGI(TAG, "[%s]\n=== 10. Testing file listing ===", __func__);
+    spiffs_storage_list_files();
+    
+    // 11. Test file deletion
+    ESP_LOGI(TAG, "[%s]\n=== 11. Testing file deletion ===", __func__);
+    result = spiffs_storage_delete_file(test_rename);
+    ESP_LOGI(TAG, "[%s] 11. Delete file %s: %s", __func__, test_rename, result ? "SUCCESS" : "FAILED");
+    
+    // 12. Verify deletion
+    exists = spiffs_storage_file_exists(test_rename);
+    ESP_LOGI(TAG, "[%s] 12. File still exists after deletion: %s", __func__, exists ? "YES (ERROR)" : "NO (CORRECT)");
+    
+    // Test error cases
+    ESP_LOGI(TAG, "[%s]\n=== 13. Testing error cases ===", __func__);
+    
+    // 13.1 Test reading non-existent file
+    ESP_LOGI(TAG, "[%s] 13.1 Testing read non-existent file...", __func__);
+    result = spiffs_storage_read_file("/spiffs/nonexistent.txt", read_buffer, sizeof(read_buffer));
+    ESP_LOGI(TAG, "[%s] 13.1 Read non-existent file: %s (expected to fail)", __func__, result ? "SUCCESS (UNEXPECTED)" : "FAILED (EXPECTED)");
+    
+    // 13.2 Test deleting non-existent file
+    ESP_LOGI(TAG, "[%s] 13.2 Testing delete non-existent file...", __func__);
+    result = spiffs_storage_delete_file("/spiffs/nonexistent.txt");
+    ESP_LOGI(TAG, "[%s] 13.2 Delete non-existent file: %s (expected to fail)", __func__, result ? "SUCCESS (UNEXPECTED)" : "FAILED (EXPECTED)");
+    
+    // 13.3 Test renaming non-existent file
+    ESP_LOGI(TAG, "[%s] 13.3 Testing rename non-existent file...", __func__);
+    result = spiffs_storage_rename_file("/spiffs/nonexistent.txt", "/spiffs/new_name.txt");
+    ESP_LOGI(TAG, "[%s] 13.3 Rename non-existent file: %s (expected to fail)", __func__, result ? "SUCCESS (UNEXPECTED)" : "FAILED (EXPECTED)");
+    
+    // 14. Test NULL/invalid parameters
+    ESP_LOGI(TAG, "[%s]\n=== 14. Testing NULL/invalid parameters ===", __func__);
+    
+    // 14.1 Test create with NULL filename
+    ESP_LOGI(TAG, "[%s] 14.1 Testing create with NULL filename...", __func__);
+    result = spiffs_storage_create_file(NULL);
+    ESP_LOGI(TAG, "[%s] 14.1 Create with NULL filename: %s (EXPECTED TO FAIL)", __func__, result ? "SUCCESS" : "FAILED (EXPECTED)");
+    if (!result) {
+        ESP_LOGI(TAG, "[%s] 14.1 Correctly handled NULL filename parameter", __func__);
     }
-
-    // Open renamed file for reading
-    ESP_LOGI(TAG, "Reading file");
-    f = fopen("/spiffs/foo.txt", "r");
-    if (f == NULL)
-    {
-        ESP_LOGE(TAG, "Failed to open file for reading");
-        return;
-    }
-    char line[64];
-    fgets(line, sizeof(line), f);
-    fclose(f);
-    // strip newline
-    char *pos = strchr(line, '\n');
-    if (pos)
-    {
-        *pos = '\0';
-    }
-    ESP_LOGI(TAG, "Read from file: '%s'", line);
+    
+    // 14.2 Test read with NULL filename
+    ESP_LOGI(TAG, "[%s] 14.2 Testing read with NULL filename...", __func__);
+    result = spiffs_storage_read_file(NULL, read_buffer, sizeof(read_buffer));
+    ESP_LOGI(TAG, "[%s] 14.2 Read file with NULL name: %s (expected to fail)", __func__, result ? "SUCCESS (UNEXPECTED)" : "FAILED (EXPECTED)");
+    
+    // 14.3 Test write with NULL data
+    ESP_LOGI(TAG, "[%s] 14.3 Testing write with NULL data...", __func__);
+    result = spiffs_storage_write_file(test_file, NULL, false);
+    ESP_LOGI(TAG, "[%s] 14.3 Write NULL data to file: %s (expected to fail)", __func__, result ? "SUCCESS (UNEXPECTED)" : "FAILED (EXPECTED)");
+    
+    ESP_LOGI(TAG, "[%s]\n=== SPIFFS storage test suite completed ===", __func__);
 }
 
 void spiffs_storage_deinit(void)
@@ -146,10 +222,15 @@ void spiffs_storage_deinit(void)
 
 bool spiffs_storage_create_file(const char *filename)
 {
+    if (filename == NULL) {
+        ESP_LOGE(TAG, "Cannot create file: filename is NULL");
+        return false;
+    }
+    
     FILE *f = fopen(filename, "w");
     if (f == NULL)
     {
-        ESP_LOGE(TAG, "Failed to create file");
+        ESP_LOGE(TAG, "Failed to create file: %s", filename);
         return false;
     }
     ESP_LOGI(TAG, "File created successfully: %s", filename);
@@ -174,7 +255,7 @@ bool spiffs_storage_list_files(void)
     // Iterate through the directory entries
     while ((entry = readdir(dir)) != NULL)
     {
-        ESP_LOGI(TAG, "Found file: %s", entry->d_name);
+        ESP_LOGI(TAG, "%s Found file: %s",__func__, entry->d_name);
     }
 
     closedir(dir);
@@ -200,21 +281,7 @@ bool spiffs_storage_file_exists(const char *filename)
 int32_t spiffs_storage_get_file_size(const char *filename)
 {
     struct stat st;
-    // // Check if the file exists
-    // if (!spiffs_storage_file_exists(filename))
-    // {
-    //     return false;
-    // }
 
-    // ESP_LOGI(TAG, "File size of '%s': %d bytes", filename, (int)st.st_size);
-
-    // if (st.st_size < 0)
-    // {
-    //     ESP_LOGE(TAG, "Error getting file size for '%s'", filename);
-    //     return -1; // Error getting file size
-    // }
-
-    // return (int32_t)st.st_size;
     // Call stat directly to fill the structure
     if (stat(filename, &st) != 0) {
         ESP_LOGE(TAG, "Failed to get file info: %s", filename);
@@ -222,7 +289,7 @@ int32_t spiffs_storage_get_file_size(const char *filename)
     }
     
     ESP_LOGI(TAG, "File size of '%s': %d bytes", filename, (int)st.st_size);
-    
+
     return (int32_t)st.st_size;
 }
 
@@ -277,8 +344,17 @@ bool spiffs_storage_rename_file(const char *old_filename, const char *new_filena
 
 bool spiffs_storage_write_file(const char *filename, const char *data, bool append)
 {
+    if (filename == NULL) {
+        ESP_LOGE(TAG, "Cannot write to file: filename is NULL");
+        return false;
+    }
+    
+    if (data == NULL) {
+        ESP_LOGE(TAG, "Cannot write NULL data to file: %s", filename);
+        return false;
+    }
+    
     FILE *f;
-
     if (append)
     {
         f = fopen(filename, "a"); // Open for appending
@@ -304,6 +380,16 @@ bool spiffs_storage_write_file(const char *filename, const char *data, bool appe
 
 bool spiffs_storage_read_file(const char *filename, char *buffer, size_t buffer_size)
 {
+    if (filename == NULL) {
+        ESP_LOGE(TAG, "Cannot read file: filename is NULL");
+        return false;
+    }
+    
+    if (buffer == NULL || buffer_size == 0) {
+        ESP_LOGE(TAG, "Invalid buffer or buffer size");
+        return false;
+    }
+    
     FILE *f = fopen(filename, "r");
     if (f == NULL)
     {
@@ -321,6 +407,16 @@ bool spiffs_storage_read_file(const char *filename, char *buffer, size_t buffer_
 
 bool spiffs_storage_read_file_line(const char *filename, char *buffer, size_t buffer_size)
 {
+    if (filename == NULL) {
+        ESP_LOGE(TAG, "Cannot read file: filename is NULL");
+        return false;
+    }
+    
+    if (buffer == NULL || buffer_size == 0) {
+        ESP_LOGE(TAG, "Invalid buffer or buffer size");
+        return false;
+    }
+    
     FILE *f = fopen(filename, "r");
     if (f == NULL)
     {
