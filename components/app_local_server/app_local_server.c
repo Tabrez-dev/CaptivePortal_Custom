@@ -299,7 +299,7 @@ static void start_webserver(void)
 {
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
     config.max_uri_handlers = URI_HANDLERS_COUNT;
-    config.max_open_sockets = 13;
+    config.max_open_sockets = 7;
     config.lru_purge_enable = true;
 
     ESP_LOGI(TAG, "Starting on port: '%d'", config.server_port);
