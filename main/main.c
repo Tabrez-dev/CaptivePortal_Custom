@@ -4,7 +4,7 @@
 #include "nvs_storage.h"
 #include "spi_ffs_storage.h"
 #include "rfid_manager.h" // Added for RFID Management
-
+#include "unity_test.h"
 void app_main(void)
 {
     nvs_storage_init();
@@ -18,9 +18,9 @@ void app_main(void)
     // Initialize time sync (requires network)
     app_time_sync_init();
     spiffs_storage_init();
-    //spiffs_storage_test();
+    //run_spiffs_storage_tests();
     //ESP_LOGI(TAG, "Initializing RFID Manager");
-    ESP_ERROR_CHECK(rfid_manager_init());
+    //ESP_ERROR_CHECK(rfid_manager_init());
     // Main loop
     while (1) {
         app_local_server_process();

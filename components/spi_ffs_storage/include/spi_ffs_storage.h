@@ -11,7 +11,6 @@
 #include "esp_spiffs.h"
 
 void spiffs_storage_init(void);
-void spiffs_storage_test(void);
 void spiffs_storage_deinit(void);
 //nvs-dual copy
 /**

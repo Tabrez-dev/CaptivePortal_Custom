@@ -949,30 +949,34 @@ static esp_err_t http_server_wifi_connect_handler(httpd_req_t *req)
     }
     
     printf("Received Wi-Fi credentials - SSID: %s, Password: %s\n", ssid, password);
-    nvs_storage_set_wifi_credentials(ssid,password);    
-    
+    // Store credentials in NVS and check for errors
+    if (!nvs_storage_set_wifi_credentials(ssid,password)) {
+        ESP_LOGE(TAG, "Failed to store WiFi credentials in NVS");
+        httpd_resp_send_500(req);
+        return ESP_FAIL;
+    }
+
     // Configure WiFi connection
     wifi_config_t wifi_config = {0};
     strncpy((char*)wifi_config.sta.ssid, ssid, sizeof(wifi_config.sta.ssid) - 1);
     strncpy((char*)wifi_config.sta.password, password, sizeof(wifi_config.sta.password) - 1);
-    
-    // Set WiFi configuration
+
+    // Disconnect before applying new config
+    esp_wifi_disconnect();
+    vTaskDelay(1000 / portTICK_PERIOD_MS);
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_APSTA));
     ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config));
-    
-    // Connect to the AP
     ESP_ERROR_CHECK(esp_wifi_connect());
-    
+
     // Update connection status
     http_server_monitor_send_msg(HTTP_MSG_WIFI_CONNECT_INIT);
-    
+
     // Send success response
     httpd_resp_set_type(req, "application/json");
     httpd_resp_send(req, "{\"status\":\"connecting\"}", HTTPD_RESP_USE_STRLEN);
 
     return ESP_OK;
 }
-
 
 static esp_err_t http_server_wifi_connect_status_handler(httpd_req_t *req)
 {
