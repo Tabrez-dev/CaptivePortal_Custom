@@ -4,6 +4,7 @@
 #include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h" // For mutex
+#include <time.h>            // For time()
 // #include <inttypes.h> // PRIX32 not used, using %lx with cast instead
 
 static const char *TAG = "RFID_MANAGER";
@@ -66,30 +67,6 @@ static esp_err_t rfid_manager_save_to_file(void);
 static esp_err_t rfid_manager_load_from_file(void);
 
 /**
- * @brief Retrieves a list of all active RFID cards.
- *
- * Populates the provided 'cards_buffer' with data of all active RFID cards.
- *
- * @param cards_buffer Pointer to an array of rfid_card_t structures to store the card data.
- * @param buffer_size The maximum number of rfid_card_t elements the cards_buffer can hold.
- * @param num_cards_copied Pointer to a uint16_t that will be filled with the number of cards actually copied to the buffer.
- * @return esp_err_t ESP_OK on success, ESP_ERR_INVALID_ARG if buffer is NULL or too small for any cards,
- *         ESP_FAIL for other errors.
- */
-static esp_err_t rfid_manager_list_cards(rfid_card_t *cards_buffer, uint16_t buffer_size, uint16_t *num_cards_copied);
-
-/**
- * @brief Formats the RFID database.
- *
- * Clears all existing RFID cards from the database and re-initializes it,
- * typically by loading the default set of cards.
- * This operation is destructive to existing card data.
- *
- * @return esp_err_t ESP_OK on success, or an error code on failure.
- */
-static esp_err_t rfid_manager_format_database(void);
-
-/**
  * @brief Checks if the loaded database is valid.
  *
  * This is typically an internal check performed after loading from file,
@@ -139,9 +116,9 @@ esp_err_t rfid_manager_init(void)
         esp_err_t ret; // Declared once at the beginning of the scope
 
         size_t total_bytes, used_bytes;
- 
+
         esp_err_t spiffs_ret = esp_spiffs_info(NULL, &total_bytes, &used_bytes); // Use default partition label (NULL)
- 
+
         if (spiffs_ret != ESP_OK)
         {
             ESP_LOGE(TAG, "SPIFFS filesystem not found or not mounted. Please initialize SPIFFS first. Error: %s", esp_err_to_name(spiffs_ret));
@@ -186,6 +163,12 @@ esp_err_t rfid_manager_init(void)
 
 esp_err_t rfid_manager_add_card(uint32_t card_id, const char *name)
 {
+    // Check if mutex is initialized
+    if (rfid_mutex == NULL) {
+        ESP_LOGE(TAG, "RFID mutex not initialized in add_card");
+        return ESP_FAIL;
+    }
+    
     if (xSemaphoreTake(rfid_mutex, pdMS_TO_TICKS(2000)) == pdTRUE)
     {
         if (name == NULL)
@@ -204,7 +187,9 @@ esp_err_t rfid_manager_add_card(uint32_t card_id, const char *name)
                 strncpy(rfid_database[i].name, name, RFID_CARD_NAME_LEN - 1);
                 rfid_database[i].name[RFID_CARD_NAME_LEN - 1] = '\0'; // Ensure null termination
                 rfid_database[i].active = 1;
-                rfid_database[i].timestamp = 0; // Or update timestamp if needed
+                time_t now_update;
+                time(&now_update);
+                rfid_database[i].timestamp = (uint32_t)now_update; // Set current timestamp
                 esp_err_t save_ret = rfid_manager_save_to_file();
                 xSemaphoreGive(rfid_mutex);
                 return save_ret;
@@ -237,7 +222,9 @@ esp_err_t rfid_manager_add_card(uint32_t card_id, const char *name)
             strncpy(rfid_database[slot_to_add].name, name, RFID_CARD_NAME_LEN - 1);
             rfid_database[slot_to_add].name[RFID_CARD_NAME_LEN - 1] = '\0';
             rfid_database[slot_to_add].active = 1;
-            rfid_database[slot_to_add].timestamp = 0; // Set current timestamp if needed
+            time_t now_add;
+            time(&now_add);
+            rfid_database[slot_to_add].timestamp = (uint32_t)now_add; // Set current timestamp
 
             // Increment card_count only if we are adding to a slot that was previously "empty"
             // in terms of the active card count. If we are reactivating an inactive card,
@@ -282,7 +269,7 @@ esp_err_t rfid_manager_add_card(uint32_t card_id, const char *name)
 
             db_header.card_count = active_count; // Update active card count
 
-            ESP_LOGI(TAG, "Added card 0x%08lx ('%s') at slot %u. Active cards: %u", (unsigned long)card_id, name, slot_to_add, db_header.card_count);
+            ESP_LOGI(TAG, "Added card %lu ('%s') at slot %u. Active cards: %u", (unsigned long)card_id, name, slot_to_add, db_header.card_count);
             esp_err_t save_ret = rfid_manager_save_to_file();
             xSemaphoreGive(rfid_mutex);
             return save_ret;
@@ -302,6 +289,12 @@ esp_err_t rfid_manager_add_card(uint32_t card_id, const char *name)
 
 esp_err_t rfid_manager_remove_card(uint32_t card_id)
 {
+    // Check if mutex is initialized
+    if (rfid_mutex == NULL) {
+        ESP_LOGE(TAG, "RFID mutex not initialized in remove_card");
+        return ESP_FAIL;
+    }
+    
     if (xSemaphoreTake(rfid_mutex, pdMS_TO_TICKS(2000)) == pdTRUE)
     {
         for (uint16_t i = 0; i < RFID_MAX_CARDS; ++i)
@@ -324,7 +317,7 @@ esp_err_t rfid_manager_remove_card(uint32_t card_id)
                 }
                 db_header.card_count = active_count;
 
-                ESP_LOGI(TAG, "Removed card 0x%08lx. Active cards: %u", (unsigned long)card_id, db_header.card_count);
+                ESP_LOGI(TAG, "Removed card %lu. Active cards: %u", (unsigned long)card_id, db_header.card_count);
                 esp_err_t save_ret = rfid_manager_save_to_file();
                 xSemaphoreGive(rfid_mutex);
                 return save_ret;
@@ -340,15 +333,33 @@ esp_err_t rfid_manager_remove_card(uint32_t card_id)
 
 bool rfid_manager_check_card(uint32_t card_id)
 {
+    // Check if mutex is initialized
+    if (rfid_mutex == NULL) {
+        ESP_LOGE(TAG, "RFID mutex not initialized in check_card, returning false");
+        return false;
+    }
+    
     if (xSemaphoreTake(rfid_mutex, pdMS_TO_TICKS(2000)) == pdTRUE)
     {
         for (uint16_t i = 0; i < RFID_MAX_CARDS; ++i)
         { // Iterate all slots
             if (rfid_database[i].card_id == card_id && rfid_database[i].active)
             {
-                // Optionally update timestamp here if tracking last access
-                // rfid_database[i].timestamp = esp_log_timestamp(); // Or time(NULL)
-                // rfid_manager_save_to_file(); // If timestamp is updated
+                // Update timestamp on successful check
+                time_t now;
+                time(&now);
+                rfid_database[i].timestamp = (uint32_t)now;
+                ESP_LOGI(TAG, "Card %lu checked successfully. Timestamp updated to %lu.", (unsigned long)card_id, (unsigned long)rfid_database[i].timestamp);
+
+                // Save the updated database to file
+                // WARNING: Frequent writes can wear out flash. Consider optimization for production.
+                esp_err_t save_err = rfid_manager_save_to_file();
+                if (save_err != ESP_OK)
+                {
+                    ESP_LOGE(TAG, "Failed to save database after timestamp update for card 0x%08lx.", (unsigned long)card_id);
+                    // Continue, but the timestamp update might not persist
+                }
+
                 xSemaphoreGive(rfid_mutex);
                 return true;
             }
@@ -364,18 +375,180 @@ uint16_t rfid_manager_get_card_count(void)
 {
     // This can return the stored db_header.card_count if it's reliably updated.
     // Taking mutex for consistency, though it might be okay for a quick read if not critical.
-    uint16_t count = 0;
+    uint16_t active_count = 0;
+    
+    // Check if mutex is initialized
+    if (rfid_mutex == NULL) {
+        ESP_LOGE(TAG, "RFID mutex not initialized in get_card_count, returning 0");
+        return 0;
+    }
+    
     if (xSemaphoreTake(rfid_mutex, pdMS_TO_TICKS(2000)) == pdTRUE)
     {
-        count = db_header.card_count;
+        // Recalculate on demand to ensure accuracy
+        for (uint16_t i = 0; i < RFID_MAX_CARDS; ++i)
+        {
+            if (rfid_database[i].active && rfid_database[i].card_id != 0)
+            {
+                active_count++;
+            }
+        }
+        // Optionally, update db_header.card_count here if it was found to be out of sync,
+        // though add/remove should be keeping it correct.
+        // For now, just return the live calculated count.
+        // If db_header.card_count was critical for other logic, this might be a place to sync it.
+        // ESP_LOGD(TAG, "Recalculated active card count: %u (db_header.card_count was %u)", active_count, db_header.card_count);
+        // db_header.card_count = active_count; // If we decide to re-sync the header value
         xSemaphoreGive(rfid_mutex);
     }
     else
     {
-        ESP_LOGE(TAG, "Failed to take RFID mutex in get_card_count");
-        // Return a safe value or last known value.
+        ESP_LOGE(TAG, "Failed to take RFID mutex in get_card_count, returning 0");
+        // Return a safe value or last known value. Here, returning 0 on mutex failure.
     }
-    return count;
+    return active_count;
+}
+
+esp_err_t rfid_manager_list_cards(rfid_card_t *cards_buffer, uint16_t buffer_size, uint16_t *num_cards_copied)
+{
+    if (cards_buffer == NULL || num_cards_copied == NULL)
+    {
+        ESP_LOGE(TAG, "list_cards: Invalid arguments"); // Added logging for invalid args
+        return ESP_ERR_INVALID_ARG;
+    }
+
+    // Check if mutex is initialized
+    if (rfid_mutex == NULL) {
+        ESP_LOGE(TAG, "RFID mutex not initialized in list_cards");
+        *num_cards_copied = 0;
+        return ESP_FAIL;
+    }
+
+    esp_err_t ret = ESP_OK; // Initialize ret
+
+    // Try to take the mutex
+    if (xSemaphoreTake(rfid_mutex, pdMS_TO_TICKS(2000)) == pdTRUE)
+    {
+        uint16_t active_cards_found = 0;
+        for (uint16_t i = 0; i < RFID_MAX_CARDS && active_cards_found < buffer_size; ++i)
+        {
+            if (rfid_database[i].active && rfid_database[i].card_id != 0)
+            {
+                cards_buffer[active_cards_found] = rfid_database[i];
+                active_cards_found++;
+            }
+        }
+        *num_cards_copied = active_cards_found;
+
+        // Give back the mutex
+        xSemaphoreGive(rfid_mutex);
+        ESP_LOGD(TAG, "Listed %u cards", active_cards_found);
+    }
+    else // This 'else' block was missing in the provided snippet
+    {
+        ESP_LOGE(TAG, "Failed to take RFID mutex in list_cards");
+        *num_cards_copied = 0; // Ensure num_cards_copied is set on failure
+        ret = ESP_FAIL;        // Set return value to indicate failure
+    }
+    return ret;
+}
+
+esp_err_t rfid_manager_format_database(void)
+{
+    esp_err_t ret = ESP_FAIL;
+    
+    // Check if mutex is initialized
+    if (rfid_mutex == NULL) {
+        ESP_LOGE(TAG, "RFID mutex not initialized in format_database");
+        return ESP_FAIL;
+    }
+    
+    if (xSemaphoreTake(rfid_mutex, pdMS_TO_TICKS(5000)) == pdTRUE) // Longer timeout for format
+    {
+        ESP_LOGW(TAG, "Formatting RFID database. All existing cards will be erased and defaults loaded.");
+        // Essentially, just load defaults, which will overwrite the file.
+        // rfid_manager_load_defaults itself calls rfid_manager_save_to_file.
+        // These helpers do not take the mutex, assuming the caller (this function) does.
+        ret = rfid_manager_load_defaults();
+        xSemaphoreGive(rfid_mutex);
+    }
+    else
+    {
+        ESP_LOGE(TAG, "Failed to take RFID mutex in format_database");
+    }
+    return ret;
+}
+
+esp_err_t rfid_manager_get_card_list_json(char *buffer, size_t bufferMaxLength)
+{
+    esp_err_t ret = ESP_OK;
+    uint16_t _length = 0;
+    bool isComma = false;
+
+    // validate the params
+    if (!buffer || !bufferMaxLength)
+    {
+        ESP_LOGE(TAG, "Invalid parameters in get_card_list_json");
+        return ESP_FAIL;
+    }
+    
+    // Check if mutex is initialized
+    if (rfid_mutex == NULL) {
+        ESP_LOGE(TAG, "RFID mutex not initialized in get_card_list_json");
+        // Return an empty card list as a fallback
+        snprintf(buffer, bufferMaxLength, "{\"cards\":[]}");
+        return ESP_FAIL;
+    }
+
+    if (xSemaphoreTake(rfid_mutex, pdMS_TO_TICKS(500)) == pdTRUE) // Longer timeout for format
+    {
+        ESP_LOGI(TAG, "Getting the Lock");
+
+        // clear the buffer
+        memset(buffer, 0, bufferMaxLength);
+
+        // Prepare the JSON, underscore before a variable indicates it is a local variable
+        _length = snprintf(buffer, bufferMaxLength, "{\"cards\":[");
+
+        // loop over all possible card slots and add active ones to the JSON string
+        for (uint16_t i = 0; i < RFID_MAX_CARDS; ++i) // Iterate up to RFID_MAX_CARDS
+        {
+            // only do for active cards that have a valid card_id
+            if (rfid_database[i].active && rfid_database[i].card_id != 0)
+            {
+                if (_length + 80U >= bufferMaxLength)
+                {
+                    ESP_LOGE(TAG, "Buffer too small for the JSON string");
+                    xSemaphoreGive(rfid_mutex);
+                    return ESP_FAIL;
+                }
+
+                _length += snprintf(buffer + _length, bufferMaxLength - _length,
+                                    "%s{\"id\":%lu,\"nm\":\"%s\",\"ts\":%lu}",
+                                    isComma ? "," : "", rfid_database[i].card_id, rfid_database[i].name, rfid_database[i].timestamp);
+
+                isComma = true;//whenever a new item is printed a comma is palced i.e obj, obj, ...
+                // debug print statement
+                ESP_LOGI(TAG, "Adding Card %d to JSON", i + 1);
+            }
+        }
+
+        // Add the closing bracket and null terminator to complete the JSON string
+        if (_length + 3U >= bufferMaxLength)
+        {
+            ESP_LOGE(TAG, "Buffer too small for the JSON string");
+            xSemaphoreGive(rfid_mutex);
+            return ESP_FAIL;
+        }
+
+        _length += snprintf(buffer + _length, bufferMaxLength - _length, "]}");
+
+        xSemaphoreGive(rfid_mutex);
+    }
+    /*whenever you're gonna call this function and pass the buffer pointer and length,
+     you're gonna get back the complete Jason string which is ready to send.*/
+
+    return ret;
 }
 
 static esp_err_t rfid_manager_load_defaults(void)
@@ -529,36 +702,6 @@ static esp_err_t rfid_manager_load_from_file(void)
              db_header.card_count, db_header.max_cards, (unsigned long)db_header.checksum, RFID_MAX_CARDS);
 
     return ESP_OK;
-}
-
-static esp_err_t rfid_manager_list_cards(rfid_card_t *cards_buffer, uint16_t buffer_size, uint16_t *num_cards_copied)
-{
-    if (cards_buffer == NULL || num_cards_copied == NULL)
-    {
-        return ESP_ERR_INVALID_ARG;
-    }
-
-    uint16_t active_cards_found = 0;
-    for (uint16_t i = 0; i < RFID_MAX_CARDS && active_cards_found < buffer_size; ++i)
-    {
-        if (rfid_database[i].active && rfid_database[i].card_id != 0)
-        {
-            cards_buffer[active_cards_found] = rfid_database[i];
-            active_cards_found++;
-        }
-    }
-    *num_cards_copied = active_cards_found;
-
-    return ESP_OK;
-}
-
-static esp_err_t rfid_manager_format_database(void)
-{
-    ESP_LOGW(TAG, "Formatting RFID database. All existing cards will be erased and defaults loaded.");
-    // Essentially, just load defaults, which will overwrite the file.
-    esp_err_t ret = rfid_manager_load_defaults();
-
-    return ret;
 }
 
 // This function might be mostly for internal use by init, or for diagnostics.

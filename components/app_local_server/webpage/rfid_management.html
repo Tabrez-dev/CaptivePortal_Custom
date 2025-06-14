@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script src='jquery-3.3.1.min.js'></script>
+    <link rel="stylesheet" href="app.css">
+    <script async src="rfid_management.js"></script>
+    <title>RFID Card Management</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #1d3557;
+        color: white;
+      }
+      tr:hover {
+        background-color: #f5f5f5;
+      }
+      .card-actions {
+        display: flex;
+        gap: 10px;
+      }
+      .delete-btn {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+      .delete-btn:hover {
+        background-color: #d32f2f;
+      }
+      .back-btn {
+        margin-bottom: 20px;
+      }
+      .card-count {
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: #1d3557;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      .form-group input {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+      .error-message {
+        color: red;
+        margin-top: 5px;
+      }
+      .success-message {
+        color: green;
+        margin-top: 5px;
+      }
+      #confirmResetModal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+      }
+      .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        border-radius: 5px;
+      }
+      .modal-buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>RFID Card Management</h1>
+    </header>
+
+    <div class="back-btn">
+      <input type="button" value="Back to Main Page" onclick="window.location.href='/'"/>
+    </div>
+
+    <div id="cardStats">
+      <div class="card-count">Total Cards: <span id="cardCount">0</span></div>
+    </div>
+
+    <div id="cardList">
+      <h2>RFID Card List</h2>
+      <div id="cardTableContainer">
+        <table id="cardTable">
+          <thead>
+            <tr>
+              <th>Card ID</th>
+              <th>Name</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="cardTableBody">
+            <!-- Card data will be populated here -->
+          </tbody>
+        </table>
+      </div>
+      <div id="noCardsMessage" style="display: none;">
+        <p>No cards found in the database.</p>
+      </div>
+    </div>
+
+    <div id="addCard">
+      <h2>Add New Card</h2>
+      <form id="addCardForm">
+        <div class="form-group">
+          <label for="cardId">Card ID (Decimal or Hex with 0x prefix):</label>
+          <input type="text" id="cardId" name="cardId" placeholder="e.g., 123456789 or 0x12AB34CD" required>
+        </div>
+        <div class="form-group">
+          <label for="cardName">Card Holder Name:</label>
+          <input type="text" id="cardName" name="cardName" placeholder="Enter name" maxlength="31" required>
+        </div>
+        <div class="buttons">
+          <input type="submit" value="Add Card">
+        </div>
+      </form>
+      <div id="addCardMessage"></div>
+    </div>
+
+    <div id="checkCard">
+      <h2>Check Card</h2>
+      <form id="checkCardForm">
+        <div class="form-group">
+          <label for="checkCardId">Card ID to Check:</label>
+          <input type="text" id="checkCardId" name="checkCardId" placeholder="e.g., 123456789 or 0x12AB34CD" required>
+        </div>
+        <div class="buttons">
+          <input type="submit" value="Check Card">
+        </div>
+      </form>
+      <div id="checkCardMessage"></div>
+    </div>
+
+    <div id="resetDatabase">
+      <h2>Reset RFID Database</h2>
+      <p>Warning: This will reset the RFID card database to default values. All custom cards will be lost.</p>
+      <div class="buttons">
+        <input type="button" id="resetDatabaseBtn" value="Reset Database">
+      </div>
+    </div>
+
+    <!-- Confirmation Modal for Reset -->
+    <div id="confirmResetModal">
+      <div class="modal-content">
+        <h3>Confirm Reset</h3>
+        <p>Are you sure you want to reset the RFID database? This action cannot be undone.</p>
+        <div class="modal-buttons">
+          <input type="button" id="cancelResetBtn" value="Cancel">
+          <input type="button" id="confirmResetBtn" value="Reset">
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
