@@ -1477,7 +1477,7 @@ static esp_err_t http_server_rfid_remove_card_handler(httpd_req_t *req)
     char idStrBuffer[48];
     uint32_t cardId = 0;
 
-    ESP_LOGI(TAG, "/api/rfid/cards/{id} (DELETE) requested: %s", req->uri);
+    ESP_LOGI(TAG, "/cards/Delete?id= (DELETE) requested: %s", req->uri);
 
     memset(idStrBuffer, 0, sizeof(idStrBuffer));
 
