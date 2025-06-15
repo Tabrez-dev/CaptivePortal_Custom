@@ -26,6 +26,9 @@ typedef struct {
     uint32_t reserved;    // Reserved for future use
 } rfid_db_header_t;
 
+esp_err_t rfid_manager_get_card(uint32_t card_id, rfid_card_t *card);
+
+int testable_mean(const int *values, int count);
 /**
  * @brief Initializes the RFID manager.
  *

@@ -7,7 +7,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_log.h"
-#include "unity_test.h"
+
 static const char *TAG = "MAIN";
 
 void app_main(void)
@@ -34,9 +34,6 @@ void app_main(void)
     } else {
         ESP_LOGI("MAIN", "RFID manager initialized successfully");
     }
-    //run_spiffs_storage_tests();
-    //ESP_LOGI(TAG, "Initializing RFID Manager");
-    //ESP_ERROR_CHECK(rfid_manager_init());
     // Main loop
     while (1) {
         app_local_server_process();

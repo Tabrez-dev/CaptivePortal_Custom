@@ -76,6 +76,27 @@ static esp_err_t rfid_manager_load_from_file(void);
  */
 static bool rfid_manager_is_database_valid(void); // May not be needed as public API if init handles it.
 
+esp_err_t rfid_manager_get_card(uint32_t card_id, rfid_card_t *card)
+{
+    return ESP_FAIL;
+}
+
+
+int testable_mean(const int *values, int count)
+{
+    if (count == 0)
+    {
+        return 0;
+    }
+    int sum = 0;
+    for (int i = 0; i < count; ++i)
+    {
+        sum += values[i];
+    }
+    return sum / count;
+}
+
+
 // --- Helper Functions ---
 
 static uint32_t calculate_checksum(const rfid_card_t *cards, uint16_t num_cards_to_checksum)
