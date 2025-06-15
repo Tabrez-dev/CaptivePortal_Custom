@@ -1317,21 +1317,12 @@ static esp_err_t http_server_rfid_management_html_handler(httpd_req_t *req)
     // Set content type
     httpd_resp_set_type(req, "text/html");
     
-    // Add caching headers - cache for 1 hour (3600 seconds)
-    httpd_resp_set_hdr(req, "Cache-Control", "max-age=3600, public");
-    httpd_resp_set_hdr(req, "ETag", "rfid-html-v1");
-    
-    // Check if client has this file cached (If-None-Match header)
-    char if_none_match[32];
-    if (httpd_req_get_hdr_value_str(req, "If-None-Match", if_none_match, sizeof(if_none_match)) == ESP_OK) {
-        if (strcmp(if_none_match, "rfid-html-v1") == 0) {
-            // Client has a valid cached version
-            httpd_resp_set_status(req, "304 Not Modified");
-            httpd_resp_send(req, NULL, 0);
-            ESP_LOGI(TAG, "http_server_rfid_management_html_handler: Sent 304 Not Modified");
-            return ESP_OK;
-        }
-    }
+    // Strong cache control headers to prevent any caching of dynamic content
+    httpd_resp_set_hdr(req, "Cache-Control", "no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0");
+    httpd_resp_set_hdr(req, "Pragma", "no-cache");
+    httpd_resp_set_hdr(req, "Expires", "-1");
+    // Add a Vary header to ensure proxy servers don't cache
+    httpd_resp_set_hdr(req, "Vary", "*");
     
     // For small files like HTML, we can send directly without chunking
     error = httpd_resp_send(req, (const char *)rfid_management_html_start, rfid_management_html_end - rfid_management_html_start);
@@ -1359,21 +1350,13 @@ static esp_err_t http_server_rfid_management_js_handler(httpd_req_t *req)
     // Set content type
     httpd_resp_set_type(req, "application/javascript");
     
-    // Add caching headers - cache for 1 hour (3600 seconds)
-    httpd_resp_set_hdr(req, "Cache-Control", "max-age=3600, public");
-    httpd_resp_set_hdr(req, "ETag", "rfid-js-v1");
+    // Strong cache control headers to prevent any caching of dynamic content
+    httpd_resp_set_hdr(req, "Cache-Control", "no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0");
+    httpd_resp_set_hdr(req, "Pragma", "no-cache");
+    httpd_resp_set_hdr(req, "Expires", "-1");
+    // Add a Vary header to ensure proxy servers don't cache
+    httpd_resp_set_hdr(req, "Vary", "*");
     
-    // Check if client has this file cached (If-None-Match header)
-    char if_none_match[32];
-    if (httpd_req_get_hdr_value_str(req, "If-None-Match", if_none_match, sizeof(if_none_match)) == ESP_OK) {
-        if (strcmp(if_none_match, "rfid-js-v1") == 0) {
-            // Client has a valid cached version
-            httpd_resp_set_status(req, "304 Not Modified");
-            httpd_resp_send(req, NULL, 0);
-            ESP_LOGI(TAG, "http_server_rfid_management_js_handler: Sent 304 Not Modified");
-            return ESP_OK;
-        }
-    }
     
     // Send the file
     error = httpd_resp_send(req, (const char *)rfid_management_js_start, rfid_management_js_end - rfid_management_js_start);
@@ -1600,7 +1583,7 @@ static esp_err_t http_server_rfid_check_card_handler(httpd_req_t *req)
 
     bool exists = rfid_manager_check_card(card_id);
     char resp_json[64];
-    sprintf(resp_json, "{\"exists\":%s, \"card_id\":\"0x%08lx\"}", exists ? "true" : "false", (unsigned long)card_id);
+    sprintf(resp_json, "{\"exists\":%s, \"card_id\":\"%lu\"}", exists ? "true" : "false", (unsigned long)card_id);
     httpd_resp_set_type(req, "application/json");
     httpd_resp_send(req, resp_json, strlen(resp_json));
     return ESP_OK;

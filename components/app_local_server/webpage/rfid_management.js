@@ -96,10 +96,10 @@ function renderCardTable() {
   cardList.forEach(function(card) {
     var row = $("<tr>");
     
-    // Format card ID as hexadecimal with 0x prefix
-    var cardIdHex = "0x" + parseInt(card.id).toString(16).toUpperCase().padStart(8, '0');
+    // Display card ID in decimal format
+    var cardIdDecimal = parseInt(card.id).toString(10);
     
-    row.append($("<td>").text(cardIdHex));
+    row.append($("<td>").text(cardIdDecimal));
     row.append($("<td>").text(card.nm));
     
     var actionsCell = $("<td>");
@@ -230,10 +230,13 @@ function checkCard() {
     contentType: 'application/json',
     data: JSON.stringify(cardData),
     success: function(response) {
+      // Use the card ID as is (already in hex format from server)
+      var cardIdDisplay = response.card_id;
+      
       if (response.exists) {
-        showCheckCardMessage("Card " + response.card_id + " exists in the database", "success");
+        showCheckCardMessage("Card " + cardIdDisplay + " exists in the database", "success");
       } else {
-        showCheckCardMessage("Card " + response.card_id + " does NOT exist in the database", "error");
+        showCheckCardMessage("Card " + cardIdDisplay + " does NOT exist in the database", "error");
       }
     },
     error: function(xhr, status, error) {
