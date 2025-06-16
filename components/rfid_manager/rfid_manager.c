@@ -204,16 +204,9 @@ esp_err_t rfid_manager_add_card(uint32_t card_id, const char *name)
         {
             if (rfid_database[i].card_id == card_id)
             { // Check if card_id matches
-                ESP_LOGI(TAG, "Card 0x%08lx already exists at slot %u. Updating name and ensuring active.", (unsigned long)card_id, i);
-                strncpy(rfid_database[i].name, name, RFID_CARD_NAME_LEN - 1);
-                rfid_database[i].name[RFID_CARD_NAME_LEN - 1] = '\0'; // Ensure null termination
-                rfid_database[i].active = 1;
-                time_t now_update;
-                time(&now_update);
-                rfid_database[i].timestamp = (uint32_t)now_update; // Set current timestamp
-                esp_err_t save_ret = rfid_manager_save_to_file();
+                ESP_LOGE(TAG, "Attempted to add card with existing ID %lu at slot %u.", (unsigned long)card_id, i);
                 xSemaphoreGive(rfid_mutex);
-                return save_ret;
+                return RFID_MANAGER_ERR_DUPLICATE_ID; // Return custom error code for duplicate ID
             }
         }
 

@@ -37,7 +37,9 @@
 #define OTA_UPDATE_SUCCESSFUL (1)
 #define OTA_UPDATE_FAILED (-1)
 
-#define HTTP_SERVER_BUFFER_SIZE (3 * 1024)
+// Increased buffer size to handle more RFID cards in JSON format
+// Previous size (3*1024) was too small for systems with many cards
+#define HTTP_SERVER_BUFFER_SIZE (10 * 1024)
 
 static char http_server_buffer[HTTP_SERVER_BUFFER_SIZE] = {0};
 static const char *TAG = "app_local_server";
@@ -1453,6 +1455,13 @@ static esp_err_t http_server_rfid_add_card_handler(httpd_req_t *req)
     if (ret == ESP_OK)
     {
         httpd_resp_send(req, "{\"status\":\"success\", \"message\":\"Card added\"}", HTTPD_RESP_USE_STRLEN);
+    }
+    else if (ret == RFID_MANAGER_ERR_DUPLICATE_ID) // Check for the specific custom error code for duplicate ID
+    {
+        ESP_LOGW(TAG, "Attempted to add card with duplicate ID.");
+        httpd_resp_set_status(req, "409 Conflict"); // Use 409 Conflict status
+        httpd_resp_set_type(req, "application/json");
+        httpd_resp_send(req, "{\"status\":\"error\", \"message\":\"Card ID already exists\"}", HTTPD_RESP_USE_STRLEN);
     }
     else if (ret == ESP_ERR_NO_MEM) // This error from rfid_manager means storage is full
     {

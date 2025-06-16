@@ -116,5 +116,9 @@ esp_err_t rfid_manager_format_database(void);
 
 esp_err_t rfid_manager_get_card_list_json(char* buffer, size_t bufferLength);
 
+// Custom error codes for RFID Manager
+// ESP-IDF typically uses 0x1000 range for component-specific errors
+#define RFID_MANAGER_ERR_BASE           0x1000  // Base error code for RFID manager
+#define RFID_MANAGER_ERR_DUPLICATE_ID   (RFID_MANAGER_ERR_BASE + 1)  // Error code for duplicate ID
 
 #endif // RFID_MANAGER_H
