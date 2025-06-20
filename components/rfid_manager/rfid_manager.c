@@ -78,6 +78,36 @@ static bool rfid_manager_is_database_valid(void); // May not be needed as public
 
 esp_err_t rfid_manager_get_card(uint32_t card_id, rfid_card_t *card)
 {
+    if (card == NULL) {
+        ESP_LOGE(TAG, "Invalid argument: card pointer is NULL");
+        return ESP_ERR_INVALID_ARG;
+    }
+    
+    // Check if mutex is initialized
+    if (rfid_mutex == NULL) {
+        ESP_LOGE(TAG, "RFID mutex not initialized in get_card");
+        return ESP_FAIL;
+    }
+    
+    if (xSemaphoreTake(rfid_mutex, pdMS_TO_TICKS(2000)) == pdTRUE) {
+        // Search for the card in the database
+        for (uint16_t i = 0; i < RFID_MAX_CARDS; ++i) {
+            if (rfid_database[i].card_id == card_id && rfid_database[i].active) {
+                // Card found, copy its data to the output parameter
+                memcpy(card, &rfid_database[i], sizeof(rfid_card_t));
+                xSemaphoreGive(rfid_mutex);
+                ESP_LOGI(TAG, "Card %lu found in database at slot %u", (unsigned long)card_id, i);
+                return ESP_OK;
+            }
+        }
+        
+        // Card not found
+        xSemaphoreGive(rfid_mutex);
+        ESP_LOGW(TAG, "Card %lu not found in database", (unsigned long)card_id);
+        return ESP_ERR_NOT_FOUND;
+    }
+    
+    ESP_LOGE(TAG, "Failed to take RFID mutex in get_card");
     return ESP_FAIL;
 }
 
