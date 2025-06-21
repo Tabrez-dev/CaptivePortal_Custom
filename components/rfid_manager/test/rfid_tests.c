@@ -8,8 +8,13 @@
 #include <string.h>
 #include "unity.h"
 #include "rfid_manager.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
 #define countof(x) (sizeof(x) / sizeof(x[0]))
+
+// Define a shorter timeout for testing
+#define RFID_WRITE_TIMEOUT_MS_TEST 100 // 100ms for tests
 
 // Test initialization of RFID Manager
 TEST_CASE("RFID Manager Initialization", "[RFID]")
@@ -184,6 +189,175 @@ TEST_CASE("JSON Card List", "[RFID]")
     
     TEST_ASSERT_NOT_NULL(strstr(json_buffer, card_id_str));
     TEST_ASSERT_NOT_NULL(strstr(json_buffer, test_card_name));
+}
+
+// Test RFID caching - no immediate write after add
+TEST_CASE("RFID Caching - No Immediate Write", "[RFID][cache]")
+{
+    // Format database to start with a clean state
+    esp_err_t ret = rfid_manager_format_database();
+    TEST_ASSERT_EQUAL(ESP_OK, ret);
+    
+    // Set a short cache timeout for testing
+    ret = rfid_manager_set_cache_timeout(RFID_WRITE_TIMEOUT_MS_TEST);
+    TEST_ASSERT_EQUAL(ESP_OK, ret);
+    
+    // Add a test card
+    uint32_t test_card_id = 0xCACHE001;
+    ret = rfid_manager_add_card(test_card_id, "Cache Test Card");
+    TEST_ASSERT_EQUAL(ESP_OK, ret);
+    
+    // Card should be in memory but not yet written to flash
+    // Verify it's in memory by checking it
+    TEST_ASSERT_TRUE(rfid_manager_check_card(test_card_id));
+    
+    // Re-initialize RFID manager to clear memory cache and force reload from flash
+    rfid_manager_init();
+    
+    // Card should not be found if it wasn't written to flash
+    TEST_ASSERT_FALSE(rfid_manager_check_card(test_card_id));
+}
+
+// Test RFID caching - timer expiry triggers write
+TEST_CASE("RFID Caching - Timer Expiry", "[RFID][cache]")
+{
+    // Format database to start with a clean state
+    esp_err_t ret = rfid_manager_format_database();
+    TEST_ASSERT_EQUAL(ESP_OK, ret);
+    
+    // Set a short cache timeout for testing
+    ret = rfid_manager_set_cache_timeout(RFID_WRITE_TIMEOUT_MS_TEST);
+    TEST_ASSERT_EQUAL(ESP_OK, ret);
+    
+    // Add a test card
+    uint32_t test_card_id = 0xCACHE002;
+    ret = rfid_manager_add_card(test_card_id, "Cache Timer Test");
+    TEST_ASSERT_EQUAL(ESP_OK, ret);
+    
+    // Wait for the timer to expire (add a buffer to be safe)
+    vTaskDelay(pdMS_TO_TICKS(RFID_WRITE_TIMEOUT_MS_TEST + 50));
+    
+    // Re-initialize RFID manager to clear memory cache and force reload from flash
+    rfid_manager_init();
+    
+    // Card should be found because it was written to flash after timer expiry
+    TEST_ASSERT_TRUE(rfid_manager_check_card(test_card_id));
+}
+
+// Test RFID caching - multiple operations coalesced
+TEST_CASE("RFID Caching - Multiple Operations", "[RFID][cache]")
+{
+    // Format database to start with a clean state
+    esp_err_t ret = rfid_manager_format_database();
+    TEST_ASSERT_EQUAL(ESP_OK, ret);
+    
+    // Set a short cache timeout for testing
+    ret = rfid_manager_set_cache_timeout(RFID_WRITE_TIMEOUT_MS_TEST);
+    TEST_ASSERT_EQUAL(ESP_OK, ret);
+    
+    // Perform multiple operations within the timeout window
+    uint32_t card1_id = 0xCACHE101;
+    uint32_t card2_id = 0xCACHE102;
+    uint32_t card3_id = 0xCACHE103;
+    
+    // Add card 1
+    ret = rfid_manager_add_card(card1_id, "Cache Multi Card 1");
+    TEST_ASSERT_EQUAL(ESP_OK, ret);
+    
+    // Wait briefly, but less than the timeout
+    vTaskDelay(pdMS_TO_TICKS(RFID_WRITE_TIMEOUT_MS_TEST / 4));
+    
+    // Add card 2
+    ret = rfid_manager_add_card(card2_id, "Cache Multi Card 2");
+    TEST_ASSERT_EQUAL(ESP_OK, ret);
+    
+    // Wait briefly again
+    vTaskDelay(pdMS_TO_TICKS(RFID_WRITE_TIMEOUT_MS_TEST / 4));
+    
+    // Add card 3
+    ret = rfid_manager_add_card(card3_id, "Cache Multi Card 3");
+    TEST_ASSERT_EQUAL(ESP_OK, ret);
+    
+    // Wait briefly again
+    vTaskDelay(pdMS_TO_TICKS(RFID_WRITE_TIMEOUT_MS_TEST / 4));
+    
+    // Remove card 1
+    ret = rfid_manager_remove_card(card1_id);
+    TEST_ASSERT_EQUAL(ESP_OK, ret);
+    
+    // Verify in-memory state
+    TEST_ASSERT_FALSE(rfid_manager_check_card(card1_id)); // Should be removed
+    TEST_ASSERT_TRUE(rfid_manager_check_card(card2_id));  // Should be present
+    TEST_ASSERT_TRUE(rfid_manager_check_card(card3_id));  // Should be present
+    
+    // Wait for the timer to expire
+    vTaskDelay(pdMS_TO_TICKS(RFID_WRITE_TIMEOUT_MS_TEST + 50));
+    
+    // Re-initialize RFID manager to clear memory cache and force reload from flash
+    rfid_manager_init();
+    
+    // Verify the final state was written to flash
+    TEST_ASSERT_FALSE(rfid_manager_check_card(card1_id)); // Should be removed
+    TEST_ASSERT_TRUE(rfid_manager_check_card(card2_id));  // Should be present
+    TEST_ASSERT_TRUE(rfid_manager_check_card(card3_id));  // Should be present
+}
+
+// Test RFID caching - flush cache
+TEST_CASE("RFID Caching - Flush Cache", "[RFID][cache]")
+{
+    // Format database to start with a clean state
+    esp_err_t ret = rfid_manager_format_database();
+    TEST_ASSERT_EQUAL(ESP_OK, ret);
+    
+    // Set a longer cache timeout for testing the flush
+    ret = rfid_manager_set_cache_timeout(RFID_WRITE_TIMEOUT_MS_TEST * 10);
+    TEST_ASSERT_EQUAL(ESP_OK, ret);
+    
+    // Add a test card
+    uint32_t test_card_id = 0xCACHE201;
+    ret = rfid_manager_add_card(test_card_id, "Cache Flush Test");
+    TEST_ASSERT_EQUAL(ESP_OK, ret);
+    
+    // Card should be in memory but not yet written to flash
+    // Verify it's in memory by checking it
+    TEST_ASSERT_TRUE(rfid_manager_check_card(test_card_id));
+    
+    // Force an immediate flush
+    ret = rfid_manager_flush_cache();
+    TEST_ASSERT_EQUAL(ESP_OK, ret);
+    
+    // Re-initialize RFID manager to clear memory cache and force reload from flash
+    rfid_manager_init();
+    
+    // Card should be found because it was written to flash by the flush operation
+    TEST_ASSERT_TRUE(rfid_manager_check_card(test_card_id));
+}
+
+// Test RFID caching - disable caching
+TEST_CASE("RFID Caching - Disable Caching", "[RFID][cache]")
+{
+    // Format database to start with a clean state
+    esp_err_t ret = rfid_manager_format_database();
+    TEST_ASSERT_EQUAL(ESP_OK, ret);
+    
+    // Disable caching by setting timeout to 0
+    ret = rfid_manager_set_cache_timeout(0);
+    TEST_ASSERT_EQUAL(ESP_OK, ret);
+    
+    // Add a test card
+    uint32_t test_card_id = 0xCACHE301;
+    ret = rfid_manager_add_card(test_card_id, "Cache Disabled Test");
+    TEST_ASSERT_EQUAL(ESP_OK, ret);
+    
+    // Re-initialize RFID manager to clear memory cache and force reload from flash
+    rfid_manager_init();
+    
+    // Card should be found because it was written immediately (caching disabled)
+    TEST_ASSERT_TRUE(rfid_manager_check_card(test_card_id));
+    
+    // Reset the cache timeout for other tests
+    ret = rfid_manager_set_cache_timeout(RFID_DEFAULT_CACHE_TIMEOUT_MS);
+    TEST_ASSERT_EQUAL(ESP_OK, ret);
 }
 
 // Test handling of invalid parameters

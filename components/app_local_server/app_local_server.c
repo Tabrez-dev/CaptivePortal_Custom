@@ -1470,6 +1470,13 @@ static esp_err_t http_server_rfid_add_card_handler(httpd_req_t *req)
         httpd_resp_set_type(req, "application/json");           // Set content type
         httpd_resp_send(req, "{\"status\":\"error\", \"message\":\"Database full - Insufficient Storage\"}", HTTPD_RESP_USE_STRLEN);
     }
+    else if (ret == ESP_ERR_INVALID_STATE) // This error is returned when a card with this ID already exists
+    {
+        ESP_LOGW(TAG, "Attempted to add card with duplicate ID. Sending 409.");
+        httpd_resp_set_status(req, "409 Conflict"); // Use 409 Conflict status
+        httpd_resp_set_type(req, "application/json");
+        httpd_resp_send(req, "{\"status\":\"error\", \"message\":\"Card with this ID already exists\"}", HTTPD_RESP_USE_STRLEN);
+    }
     else
     {
         ESP_LOGE(TAG, "Failed to add RFID card: %s", esp_err_to_name(ret));

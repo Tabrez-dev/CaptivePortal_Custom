@@ -7,6 +7,7 @@
 
 #define RFID_MAX_CARDS 200
 #define RFID_CARD_NAME_LEN 32
+#define RFID_DEFAULT_CACHE_TIMEOUT_MS 5000  // Default 5 seconds cache timeout
 
 // RFID card structure
 // Size: 4 (card_id) + 1 (active) + 32 (name) + 4 (timestamp) = 41 bytes
@@ -106,6 +107,28 @@ esp_err_t rfid_manager_format_database(void);
 
 
 esp_err_t rfid_manager_get_card_list_json(char* buffer, size_t bufferLength);
+
+/**
+ * @brief Set the cache timeout for RFID database writes.
+ *
+ * Sets the time in milliseconds after which pending changes to the RFID database
+ * will be written to flash storage. Multiple card operations within this timeout
+ * will be coalesced into a single write operation to reduce flash wear.
+ *
+ * @param timeout_ms The timeout in milliseconds. Set to 0 to disable caching.
+ * @return esp_err_t ESP_OK on success, or an error code on failure.
+ */
+esp_err_t rfid_manager_set_cache_timeout(uint32_t timeout_ms);
+
+/**
+ * @brief Force an immediate write of any cached changes to flash storage.
+ *
+ * This function can be used to ensure all changes are persisted immediately,
+ * for example before system shutdown or when immediate persistence is required.
+ *
+ * @return esp_err_t ESP_OK on success, or an error code on failure.
+ */
+esp_err_t rfid_manager_flush_cache(void);
 
 // Custom error codes for RFID Manager
 // ESP-IDF typically uses 0x1000 range for component-specific errors
