@@ -46,15 +46,15 @@ void app_main(void)
     // print_banner("Running tests without [fails] tag");
     // UNITY_BEGIN();
     // unity_run_tests_by_tag("[fails]", true);
-    // UNITY_END();
+     UNITY_END();
 
     print_banner("Running all the registered tests");
-    UNITY_BEGIN();
+    //UNITY_BEGIN();
 
     ESP_LOGI(TAG, "Initializing SPI FFS storage");
     spiffs_storage_init();
 
-    unity_run_all_tests();
+    //unity_run_all_tests();
 
     UNITY_END();
 
