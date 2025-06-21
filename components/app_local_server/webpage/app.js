@@ -12,8 +12,10 @@ $(document).ready(function()
 {
   getSSID();
   getUpdateStatus();
-  startSensorInterval();
+  //startSensorInterval();
   startLocalTimeInterval();
+  getSavedStationSSID();
+
   // earlier I commented out this function, but this is also important
   // for the scenarios when the user has refreshed the web page
   getConnectInfo();
@@ -27,7 +29,35 @@ $(document).ready(function()
   $("#disconnect_wifi").on("click", function() {
     disconnectWiFi();
   });
+  
+  // RFID Management Button Callback
+  $("#rfid_management_link").on("click", function() {
+    window.location.href = "/rfid_management.html";
+  });
 });
+
+
+/**
+ * Gets the saved station SSID from the ESP32 and pre-fills the input field.
+ */
+function getSavedStationSSID()
+{
+  $.getJSON('/getSavedStationSSID', function(data) {
+    // console.log("Saved station SSID data:", data); // For debugging
+    if (data && data.hasOwnProperty("station_ssid")) {
+      $("#connect_ssid").val(data["station_ssid"]); // Populate the SSID input field
+      if (data["station_ssid"] !== "") {
+         console.log("Pre-filled SSID: " + data["station_ssid"]);
+      } else {
+         console.log("No saved station SSID to pre-fill.");
+      }
+    } else {
+      console.error("Error or unexpected response from /getSavedStationSSID");
+    }
+  }).fail(function(jqXHR, textStatus, errorThrown) {
+    console.error("Failed to get saved station SSID: " + textStatus + ", " + errorThrown);
+  });
+}
 
 /**
  * Gets file name and size for display on the web page.
