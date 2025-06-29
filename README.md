@@ -32,6 +32,13 @@ A production-ready **Captive Portal** implementation for **ESP32** with an enter
 - 🔧 **Runtime Configuration** - Adjustable cache timeouts and system parameters
 - 📈 **Resource Monitoring** - Built-in memory and performance tracking
 
+![image](https://github.com/user-attachments/assets/426a5de8-a6a0-49bc-a4ae-6bc1e7635432)
+![image](https://github.com/user-attachments/assets/856b8912-a962-4f40-840a-0707ab7a14a9)
+
+![image](https://github.com/user-attachments/assets/65dfbfc6-6369-4e75-abee-41fb04650dda)
+![image](https://github.com/user-attachments/assets/1854c2ae-8b6e-49ff-a4ee-4682237508a2)
+
+
 ## 🏗️ System Architecture
 
 ```mermaid
