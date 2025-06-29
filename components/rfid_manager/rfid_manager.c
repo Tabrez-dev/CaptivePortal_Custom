@@ -20,6 +20,7 @@ static SemaphoreHandle_t rfid_mutex = NULL;
 
 // Caching mechanism variables
 static bool is_dirty = false;                       // Flag to indicate pending changes
+static bool is_ready_to_write = false;              // Flag to signal that a write to NVS is pending
 static esp_timer_handle_t rfid_write_timer = NULL;  // Timer for delayed NVS write
 static uint32_t rfid_write_timeout_ms = RFID_DEFAULT_CACHE_TIMEOUT_MS; // Configurable timeout
 
@@ -42,6 +43,16 @@ static const uint16_t num_default_cards = sizeof(default_cards) / sizeof(rfid_ca
  * @return esp_err_t ESP_OK on success, or an error code if saving to file fails.
  */
 static esp_err_t rfid_manager_load_defaults(void);
+
+/**
+ * @brief Internal function to perform the actual write of cached RFID data to NVS.
+ * 
+ * This function is called by rfid_manager_process() or directly when caching is disabled.
+ * It handles mutex acquisition and error logging for the NVS write operation.
+ * 
+ * @return esp_err_t ESP_OK on success, or an error code on failure.
+ */
+static esp_err_t rfid_manager_write_into_memory(void);
 
 /**
  * @brief Saves the current in-memory RFID database to the SPIFFS file.
@@ -289,7 +300,7 @@ esp_err_t rfid_manager_add_card(uint32_t card_id, const char *name)
                     ESP_LOGD(TAG, "Started RFID write timer for %lu ms", (unsigned long)rfid_write_timeout_ms);
                 } else {
                     // If caching is disabled, write immediately
-                    esp_err_t save_ret = rfid_manager_save_to_file();
+                    esp_err_t save_ret = rfid_manager_write_into_memory(); // Call the new function
                     xSemaphoreGive(rfid_mutex);
                     return save_ret;
                 }
@@ -343,10 +354,10 @@ esp_err_t rfid_manager_remove_card(uint32_t card_id)
                         esp_timer_start_once(rfid_write_timer, rfid_write_timeout_ms * 1000);
                         ESP_LOGD(TAG, "Started RFID write timer for %lu ms", (unsigned long)rfid_write_timeout_ms);
                     } else {
-                        // If caching is disabled, write immediately
-                        esp_err_t save_ret = rfid_manager_save_to_file();
-                        xSemaphoreGive(rfid_mutex);
-                        return save_ret;
+                    // If caching is disabled, write immediately
+                    esp_err_t save_ret = rfid_manager_write_into_memory();
+                    xSemaphoreGive(rfid_mutex);
+                    return save_ret;
                     }
                 }
                 
@@ -583,7 +594,7 @@ esp_err_t rfid_manager_get_card_list_json(char *buffer, size_t bufferMaxLength)
                 }
 
                 _length += snprintf(buffer + _length, bufferMaxLength - _length,
-                                    "%s{\"id\":%lu,\"nm\":\"%s\",\"ts\":%lu}",
+                                    "%s{\"id\":\"0x%lX\",\"nm\":\"%s\",\"ts\":%lu}",
                                     isComma ? "," : "", rfid_database[i].card_id, rfid_database[i].name, rfid_database[i].timestamp);
 
                 isComma = true;//whenever a new item is printed a comma is palced i.e obj, obj, ...
@@ -638,7 +649,6 @@ static esp_err_t rfid_manager_load_defaults(void)
 
 static esp_err_t rfid_manager_save_to_file(void)
 {
-    esp_err_t ret = ESP_OK;
     bool mutex_taken_locally = false;
     
     // Check if mutex is valid first
@@ -697,33 +707,57 @@ static esp_err_t rfid_manager_save_to_file(void)
 }
 
 /**
- * Timer callback function for delayed writing to flash.
+ * @brief Timer callback function for delayed writing to flash.
+ * 
+ * This function is called when the write timer expires. It sets a flag
+ * to indicate that a write to NVS is pending, which will then be handled
+ * by rfid_manager_process().
+ * 
+ * @param arg Timer argument (unused)
  */
 static void rfid_cache_write_timeout_handler(void* arg)
 {
-    ESP_LOGI(TAG, "RFID write timer expired");
-    
-    // Check if we need to take the mutex (depends on how timer is used)
-    if (rfid_mutex == NULL) {
-        ESP_LOGE(TAG, "RFID mutex not initialized in write timeout handler");
-        return;
-    }
-    
-    if (xSemaphoreTake(rfid_mutex, pdMS_TO_TICKS(2000)) == pdTRUE) {
+    ESP_LOGI(TAG, "RFID write timer expired. Setting is_ready_to_write flag.");
+    is_ready_to_write = true;
+}
+
+/**
+ * @brief Internal function to perform the actual write of cached RFID data to NVS.
+ * 
+ * This function is called by rfid_manager_process() or directly when caching is disabled.
+ * It handles mutex acquisition and error logging for the NVS write operation.
+ * 
+ * @return esp_err_t ESP_OK on success, or an error code on failure.
+ */
+static esp_err_t rfid_manager_write_into_memory(void)
+{
+    esp_err_t write_into_mem_ret = ESP_OK;
+
+    ESP_LOGI(TAG, "Attempting to write cached RFID data to NVS.");
+    // Attempt to take the mutex before accessing shared resources
+    if (rfid_mutex != NULL && xSemaphoreTake(rfid_mutex, pdMS_TO_TICKS(2000)) == pdTRUE) { // Use a reasonable timeout
         if (is_dirty) {
-            ESP_LOGI(TAG, "Writing cached RFID data to flash");
+            ESP_LOGI(TAG, "is_dirty is true, writing cached RFID data to NVS...");
             esp_err_t err = rfid_manager_save_to_file();
             if (err == ESP_OK) {
                 is_dirty = false;
-                ESP_LOGI(TAG, "RFID data successfully written to flash");
+                ESP_LOGI(TAG, "Successfully wrote RFID data to NVS.");
             } else {
-                ESP_LOGE(TAG, "Failed to write RFID data to flash: %s", esp_err_to_name(err));
+                ESP_LOGE(TAG, "Failed to write RFID data to NVS from timer: %s", esp_err_to_name(err));
+                // Consider: What to do if save fails? Retry? For now, is_dirty remains true.
+                write_into_mem_ret = ESP_FAIL;
             }
+        } else {
+            ESP_LOGI(TAG, "is_dirty is false, no NVS write needed from timer.");
         }
         xSemaphoreGive(rfid_mutex);
     } else {
-        ESP_LOGE(TAG, "Failed to take RFID mutex in write timeout handler");
+        ESP_LOGE(TAG, "Failed to take RFID mutex for NVS write. NVS write deferred.");
+        // If this happens, data remains dirty and will attempt to save on next timer expiry or deinit.
+        write_into_mem_ret = ESP_FAIL;
     }
+
+    return write_into_mem_ret;
 }
 
 /**
@@ -849,4 +883,65 @@ static esp_err_t rfid_manager_load_from_file(void)
     }
 
     return ESP_OK;
+}
+
+esp_err_t rfid_manager_deinit(void)
+{
+    ESP_LOGI(TAG, "Deinitializing RFID manager...");
+
+    // 1. Ensure all pending changes are flushed to NVS before deinitialization
+    // This will acquire the mutex internally, stop the timer, and save data if dirty.
+    esp_err_t flush_ret = rfid_manager_flush_cache();
+    if (flush_ret != ESP_OK) {
+        ESP_LOGW(TAG, "Failed to flush RFID cache during deinitialization: %s", esp_err_to_name(flush_ret));
+        // Decide if this is a critical error. For deinit, we might proceed with cleanup anyway.
+    }
+
+    // 2. Stop and delete the timer
+    if (rfid_write_timer != NULL)
+    {
+        esp_timer_stop(rfid_write_timer);
+        esp_timer_delete(rfid_write_timer);
+        rfid_write_timer = NULL;
+        ESP_LOGD(TAG, "RFID write timer deleted.");
+    }
+
+    // 3. Delete the mutex
+    if (rfid_mutex != NULL) { // Check if mutex is still valid after flush_cache (it should be)
+        vSemaphoreDelete(rfid_mutex);
+        rfid_mutex = NULL;
+        ESP_LOGD(TAG, "RFID mutex deleted.");
+    }
+
+    ESP_LOGI(TAG, "RFID manager deinitialized successfully.");
+    return ESP_OK;
+}
+
+/**
+ * @brief Processes pending RFID manager operations, such as writing cached data to NVS.
+ * 
+ * This function should be called periodically from the main application loop.
+ * It checks if there are pending NVS write operations signaled by the timer
+ * and executes them.
+ * 
+ * @return true if processing occurred (e.g., a write was attempted), false otherwise.
+ */
+bool rfid_manager_process(void)
+{
+    if (is_ready_to_write)
+    {
+        ESP_LOGI(TAG, "rfid_manager_process: is_ready_to_write is true. Attempting NVS write.");
+        esp_err_t write_into_ret = rfid_manager_write_into_memory();
+
+        if(write_into_ret == ESP_OK)
+        {
+            is_ready_to_write = false;
+            ESP_LOGI(TAG, "rfid_manager_process: NVS write successful, is_ready_to_write cleared.");
+        } else {
+            ESP_LOGE(TAG, "rfid_manager_process: NVS write failed.");
+        }
+        return true; // Indicate that processing occurred
+    } 
+
+    return false; // No processing needed
 }

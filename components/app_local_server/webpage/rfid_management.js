@@ -96,10 +96,8 @@ function renderCardTable() {
   cardList.forEach(function(card) {
     var row = $("<tr>");
     
-    // Display card ID in decimal format
-    var cardIdDecimal = parseInt(card.id).toString(10);
-    
-    row.append($("<td>").text(cardIdDecimal));
+    // Display card ID (expected to be hex string from server)
+    row.append($("<td>").text(card.id));
     row.append($("<td>").text(card.nm));
     
     var actionsCell = $("<td>");

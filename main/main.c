@@ -37,6 +37,7 @@ void app_main(void)
     // Main loop
     while (1) {
         app_local_server_process();
+        rfid_manager_process();
         vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
 }

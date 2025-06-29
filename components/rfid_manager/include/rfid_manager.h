@@ -130,6 +130,19 @@ esp_err_t rfid_manager_set_cache_timeout(uint32_t timeout_ms);
  */
 esp_err_t rfid_manager_flush_cache(void);
 
+/**
+ * @brief Processes pending RFID manager operations, such as writing cached data to NVS.
+ * 
+ * This function should be called periodically from the main application loop.
+ * It checks if there are pending NVS write operations signaled by the timer
+ * and executes them.
+ * 
+ * @return true if processing occurred (e.g., a write was attempted), false otherwise.
+ */
+bool rfid_manager_process(void);
+
+esp_err_t rfid_manager_deinit(void);
+
 // Custom error codes for RFID Manager
 // ESP-IDF typically uses 0x1000 range for component-specific errors
 #define RFID_MANAGER_ERR_BASE           0x1000  // Base error code for RFID manager
