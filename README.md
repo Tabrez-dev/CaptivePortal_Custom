@@ -46,13 +46,13 @@ graph TB
         subgraph "Application Layer"
             WEB[Web Interface<br/>HTML/JS/CSS]
             API[REST API<br/>JSON]
-            RFID[RFID Manager<br/>Core Logic]
+            RFID((RFID Manager<br/>Core Logic))
         end
         
         subgraph "Storage Layer"
             NVS[NVS Storage<br/>Config Data]
             SPIFFS[SPIFFS<br/>RFID Database]
-            CACHE[Write Cache<br/>In-Memory]
+            CACHE{Write Cache<br/>In-Memory}
         end
         
         subgraph "System Services"
@@ -80,8 +80,7 @@ graph TB
     CACHE --> RTOS
     SNTP --> RTOS
     
-    style RFID fill:#f96,stroke:#333,stroke-width:4px
-    style CACHE fill:#9f6,stroke:#333,stroke-width:2px
+
 ```
 
 ## 📁 Project Structure
