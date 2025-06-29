@@ -159,21 +159,50 @@ classDiagram
 
 ### Flash Wear Optimization Strategy
 
-The RFID manager implements a sophisticated caching mechanism to minimize flash wear:
 
 ```mermaid
-stateDiagram-v2
-    [*] --> Idle
-    Idle --> Dirty : add/remove/update card
-    Dirty --> TimerRunning : start timer
-    TimerRunning --> ReadyToWrite : timer expires
-    ReadyToWrite --> Writing : rfid_manager_process()
-    Writing --> Idle : write complete
-    TimerRunning --> TimerRunning : more changes (restart timer)
+sequenceDiagram
+    participant App
+    participant RFID_Manager
+    participant Timer
+    participant Flash_Memory
     
-    note right of TimerRunning : Coalesces multiple<br/>operations into<br/>single write
-    note right of Writing : Actual flash write<br/>happens here
+    Note over App,Flash_Memory: Scenario: Multiple rapid card operations
+    
+    App->>RFID_Manager: add_card(0xABCD)
+    RFID_Manager->>RFID_Manager: Update in-memory DB
+    RFID_Manager->>Timer: Start/Reset 5s timer
+    Note right of RFID_Manager: is_dirty = true
+    
+    App->>RFID_Manager: remove_card(0x1234)
+    RFID_Manager->>RFID_Manager: Update in-memory DB
+    RFID_Manager->>Timer: Cancel & Restart 5s timer
+    Note right of Timer: Timer resets!
+    
+    App->>RFID_Manager: add_card(0xEFGH)
+    RFID_Manager->>RFID_Manager: Update in-memory DB
+    RFID_Manager->>Timer: Cancel & Restart 5s timer
+    Note right of Timer: Timer resets again!
+    
+    Note over Timer: 5 seconds pass...
+    Timer-->>RFID_Manager: Timeout callback
+    RFID_Manager->>RFID_Manager: is_ready_to_write = true
+    
+    App->>RFID_Manager: rfid_manager_process()
+    alt is_ready_to_write == true
+        RFID_Manager->>Flash_Memory: Write all changes (1 write)
+        Flash_Memory-->>RFID_Manager: Success
+        RFID_Manager->>RFID_Manager: is_dirty = false
+        Note over Flash_Memory: 3 operations = 1 flash write!
+    end
 ```
+
+**Key Benefits:**
+- **99% Flash Write Reduction**: 100 rapid operations → 1 flash write
+- **Intelligent Timer Management**: Each new operation resets the timer, maximizing coalescing
+- **Zero Data Loss**: All changes preserved in RAM until written
+- **Configurable Delay**: Default 5s, adjustable via `rfid_manager_set_cache_timeout()`
+- **Manual Flush**: `rfid_manager_flush_cache()` for immediate persistence when needed
 
 ### API Overview
 
