@@ -735,7 +735,9 @@ static esp_err_t rfid_manager_write_into_memory(void)
 
     ESP_LOGI(TAG, "Attempting to write cached RFID data to NVS.");
     // Attempt to take the mutex before accessing shared resources
-    if (rfid_mutex != NULL && xSemaphoreTake(rfid_mutex, pdMS_TO_TICKS(2000)) == pdTRUE) { // Use a reasonable timeout
+    // Use xSemaphoreTakeRecursive as this function might be called from contexts
+    // that already hold the mutex (e.g., add_card, remove_card).
+    if (rfid_mutex != NULL && xSemaphoreTakeRecursive(rfid_mutex, pdMS_TO_TICKS(2000)) == pdTRUE) { // Use a reasonable timeout
         if (is_dirty) {
             ESP_LOGI(TAG, "is_dirty is true, writing cached RFID data to NVS...");
             esp_err_t err = rfid_manager_save_to_file();
@@ -750,7 +752,7 @@ static esp_err_t rfid_manager_write_into_memory(void)
         } else {
             ESP_LOGI(TAG, "is_dirty is false, no NVS write needed from timer.");
         }
-        xSemaphoreGive(rfid_mutex);
+        xSemaphoreGiveRecursive(rfid_mutex); // Use GiveRecursive to match TakeRecursive
     } else {
         ESP_LOGE(TAG, "Failed to take RFID mutex for NVS write. NVS write deferred.");
         // If this happens, data remains dirty and will attempt to save on next timer expiry or deinit.
