@@ -12,9 +12,9 @@ venv/
 .env/
 
 # ESP-IDF specific
-sdkconfig.old
-sdkconfig.defaults
-sdkconfig
+#sdkconfig.old
+#sdkconfig.defaults
+#sdkconfig
 CMakeCache.txt
 cmake-build-*
 *.pyc
