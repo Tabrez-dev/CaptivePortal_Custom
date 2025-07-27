@@ -9,11 +9,25 @@ jobs:
       with:
         submodules: recursive
 
-    - name: Setup ESP-IDF v5.1.5
-      uses: espressif/esp-idf-ci-action@v1
+    - name: Setup Python
+      uses: actions/setup-python@v4
       with:
-        esp_idf_version: v5.1.5
-        target: esp32
+        python-version: '3.10'
+
+    - name: Install ESP-IDF prerequisites
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y git wget flex bison gperf python3 python3-pip cmake ninja-build ccache libffi-dev libssl-dev dfu-util
+
+    - name: Install ESP-IDF v5.1.5
+      run: |
+        git clone -b v5.1.5 --recursive https://github.com/espressif/esp-idf.git
+        cd esp-idf
+        ./install.sh
+        . ./export.sh
+        cd ..
 
     - name: Build project
-      run: idf.py build
+      run: |
+        . esp-idf/export.sh
+        idf.py build
