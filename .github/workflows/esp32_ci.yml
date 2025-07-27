@@ -14,5 +14,5 @@ jobs:
 
     - name: Build project
       run: |
-        source /opt/esp/idf/export.sh
+        . /opt/esp/idf/export.sh
         idf.py build
