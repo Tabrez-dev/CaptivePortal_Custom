@@ -46,8 +46,6 @@ typedef struct http_server_q_msg
 
 void http_server_fw_update_reset_cb(void *arg);
 
-static esp_err_t http_server_sensor_handler(httpd_req_t *req);
-
 bool app_local_server_init(void);
 bool app_local_server_start(void);
 bool app_local_server_process(void);
