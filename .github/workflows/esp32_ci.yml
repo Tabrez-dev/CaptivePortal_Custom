@@ -1,0 +1,19 @@
+name: ESP32 CI
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Setup ESP-IDF v5.1.5
+      uses: espressif/esp-idf-ci-action@v1
+      with:
+        esp_idf_version: v5.1.5
+        target: esp32
+
+    - name: Build project
+      run: idf.py build
