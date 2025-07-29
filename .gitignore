@@ -26,3 +26,7 @@ __pycache__/
 # Other
 .DS_Store
 Thumbs.db
+
+# AWS IoT Certificates
+components/aws_iot/certs/*
+!components/aws_iot/certs/README.md
