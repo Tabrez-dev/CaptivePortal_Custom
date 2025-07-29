@@ -1,7 +1,3 @@
-# AWS IoT Test Configuration
-
-idf_component_register(
-    SRCS "aws_iot_test.c"
-    INCLUDE_DIRS "../include"
-    REQUIRES unity
-)
+idf_component_register(SRC_DIRS "."
+                    INCLUDE_DIRS "."
+                    REQUIRES app_wifi nvs_flash aws_iot unity)

@@ -3,6 +3,7 @@
 #include "esp_netif_sntp.h"
 #include "esp_sntp.h"
 #include "app_time_sync.h"
+#include "aws_iot.h"
 #include <time.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -24,6 +25,16 @@ static void time_sync_notification_cb(struct timeval *tv) {
     if (time_sync_event_group != NULL) {
         xEventGroupSetBits(time_sync_event_group, TIME_SYNC_COMPLETED_BIT);
     }
+        // Initialize AWS IoT connectivity
+        esp_err_t aws_init_ret = aws_iot_start();
+        if (aws_init_ret != ESP_OK)
+        {
+            ESP_LOGE(TAG, "Failed to initialize AWS IoT: %s", esp_err_to_name(aws_init_ret));
+        }
+        else
+        {
+            ESP_LOGI(TAG, "AWS IoT initialized successfully");
+        }
 }
 
 static void configure_timezone(void) {
@@ -93,7 +104,7 @@ static void time_sync_task(void *pvParameters) {
     char strftime_buf[64];
     strftime(strftime_buf, sizeof(strftime_buf), "%c", &timeinfo);
     ESP_LOGI(TAG, "The current local time is: %s", strftime_buf);
-    
+
     // Set the event bit to indicate time sync attempt is complete
     xEventGroupSetBits(time_sync_event_group, TIME_SYNC_COMPLETED_BIT);
     
@@ -147,7 +158,7 @@ void app_time_sync_init(void) {
         char strftime_buf[64];
         strftime(strftime_buf, sizeof(strftime_buf), "%c", &timeinfo);
         ESP_LOGI(TAG, "The current local time is: %s", strftime_buf);
-        
+
         // Set the event bit since time is already set
         xEventGroupSetBits(time_sync_event_group, TIME_SYNC_COMPLETED_BIT);
     }

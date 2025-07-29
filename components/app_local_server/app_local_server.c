@@ -26,6 +26,7 @@
 #include "rfid_manager.h"
 #include "../app_time_sync/include/app_time_sync.h"
 #include "freertos/timers.h"
+#include "aws_iot.h"
 
 // DEFINES
 #define HTTP_SERVER_MAX_URI_HANDLERS (20u)
@@ -113,6 +114,9 @@ static esp_err_t http_server_rfid_remove_card_handler(httpd_req_t *req);
 static esp_err_t http_server_rfid_get_card_count_handler(httpd_req_t *req);
 static esp_err_t http_server_rfid_check_card_handler(httpd_req_t *req);
 static esp_err_t http_server_rfid_reset_handler(httpd_req_t *req);
+
+// AWS IoT API Handler
+static esp_err_t http_server_aws_iot_status_handler(httpd_req_t *req);
 
 static esp_err_t http_404_error_handler(httpd_req_t *req, httpd_err_code_t err);
 
@@ -225,8 +229,13 @@ static const httpd_uri_t uri_handlers[] = {
     {.uri = "/cards/Reset",
      .method = HTTP_POST,
      .handler = http_server_rfid_reset_handler,
+     .user_ctx = NULL},
+     
+    // AWS IoT Status Endpoint
+    {.uri = "/awsIoTStatus",
+     .method = HTTP_GET,
+     .handler = http_server_aws_iot_status_handler,
      .user_ctx = NULL}
-
 };
 
 // Calculate the number of URI handlers
@@ -392,21 +401,10 @@ static esp_err_t http_server_j_query_handler(httpd_req_t *req)
     // Set content type
     httpd_resp_set_type(req, "application/javascript");
     
-    // Add caching headers - cache for 1 hour (3600 seconds)
-    httpd_resp_set_hdr(req, "Cache-Control", "max-age=3600, public");
-    httpd_resp_set_hdr(req, "ETag", "jquery-3.3.1");
-    
-    // Check if client has this file cached (If-None-Match header)
-    char if_none_match[32];
-    if (httpd_req_get_hdr_value_str(req, "If-None-Match", if_none_match, sizeof(if_none_match)) == ESP_OK) {
-        if (strcmp(if_none_match, "jquery-3.3.1") == 0) {
-            // Client has a valid cached version
-            httpd_resp_set_status(req, "304 Not Modified");
-            httpd_resp_send(req, NULL, 0);
-            ESP_LOGI(TAG, "http_server_j_query_handler: Sent 304 Not Modified");
-            return ESP_OK;
-        }
-    }
+    // Disable caching for development
+    httpd_resp_set_hdr(req, "Cache-Control", "no-cache, no-store, must-revalidate");
+    httpd_resp_set_hdr(req, "Pragma", "no-cache");
+    httpd_resp_set_hdr(req, "Expires", "0");
     
     // Send the file with chunked encoding for large files
     httpd_resp_set_hdr(req, "Transfer-Encoding", "chunked");
@@ -459,21 +457,10 @@ static esp_err_t http_server_index_html_handler(httpd_req_t *req)
     // Set content type
     httpd_resp_set_type(req, "text/html");
     
-    // Add caching headers - cache for 1 hour (3600 seconds)
-    httpd_resp_set_hdr(req, "Cache-Control", "max-age=3600, public");
-    httpd_resp_set_hdr(req, "ETag", "index-html-v1");
-    
-    // Check if client has this file cached (If-None-Match header)
-    char if_none_match[32];
-    if (httpd_req_get_hdr_value_str(req, "If-None-Match", if_none_match, sizeof(if_none_match)) == ESP_OK) {
-        if (strcmp(if_none_match, "index-html-v1") == 0) {
-            // Client has a valid cached version
-            httpd_resp_set_status(req, "304 Not Modified");
-            httpd_resp_send(req, NULL, 0);
-            ESP_LOGI(TAG, "http_server_index_html_handler: Sent 304 Not Modified");
-            return ESP_OK;
-        }
-    }
+    // Disable caching for development
+    httpd_resp_set_hdr(req, "Cache-Control", "no-cache, no-store, must-revalidate");
+    httpd_resp_set_hdr(req, "Pragma", "no-cache");
+    httpd_resp_set_hdr(req, "Expires", "0");
     
     // For small files like HTML, we can send directly without chunking
     error = httpd_resp_send(req, (const char *)index_html_start, index_html_end - index_html_start);
@@ -501,21 +488,10 @@ static esp_err_t http_server_app_css_handler(httpd_req_t *req)
     // Set content type
     httpd_resp_set_type(req, "text/css");
     
-    // Add caching headers - cache for 1 hour (3600 seconds)
-    httpd_resp_set_hdr(req, "Cache-Control", "max-age=3600, public");
-    httpd_resp_set_hdr(req, "ETag", "app-css-v1");
-    
-    // Check if client has this file cached (If-None-Match header)
-    char if_none_match[32];
-    if (httpd_req_get_hdr_value_str(req, "If-None-Match", if_none_match, sizeof(if_none_match)) == ESP_OK) {
-        if (strcmp(if_none_match, "app-css-v1") == 0) {
-            // Client has a valid cached version
-            httpd_resp_set_status(req, "304 Not Modified");
-            httpd_resp_send(req, NULL, 0);
-            ESP_LOGI(TAG, "http_server_app_css_handler: Sent 304 Not Modified");
-            return ESP_OK;
-        }
-    }
+    // Disable caching for development
+    httpd_resp_set_hdr(req, "Cache-Control", "no-cache, no-store, must-revalidate");
+    httpd_resp_set_hdr(req, "Pragma", "no-cache");
+    httpd_resp_set_hdr(req, "Expires", "0");
     
     // Send the file
     error = httpd_resp_send(req, (const char *)app_css_start, app_css_end - app_css_start);
@@ -543,21 +519,10 @@ static esp_err_t http_server_app_js_handler(httpd_req_t *req)
     // Set content type
     httpd_resp_set_type(req, "application/javascript");
     
-    // Add caching headers - cache for 1 hour (3600 seconds)
-    httpd_resp_set_hdr(req, "Cache-Control", "max-age=3600, public");
-    httpd_resp_set_hdr(req, "ETag", "app-js-v1");
-    
-    // Check if client has this file cached (If-None-Match header)
-    char if_none_match[32];
-    if (httpd_req_get_hdr_value_str(req, "If-None-Match", if_none_match, sizeof(if_none_match)) == ESP_OK) {
-        if (strcmp(if_none_match, "app-js-v1") == 0) {
-            // Client has a valid cached version
-            httpd_resp_set_status(req, "304 Not Modified");
-            httpd_resp_send(req, NULL, 0);
-            ESP_LOGI(TAG, "http_server_app_js_handler: Sent 304 Not Modified");
-            return ESP_OK;
-        }
-    }
+    // Disable caching for development
+    httpd_resp_set_hdr(req, "Cache-Control", "no-cache, no-store, must-revalidate");
+    httpd_resp_set_hdr(req, "Pragma", "no-cache");
+    httpd_resp_set_hdr(req, "Expires", "0");
     
     // Send the file
     error = httpd_resp_send(req, (const char *)app_js_start, app_js_end - app_js_start);
@@ -585,21 +550,10 @@ static esp_err_t http_server_favicon_handler(httpd_req_t *req)
     // Set content type
     httpd_resp_set_type(req, "image/x-icon");
     
-    // Add caching headers - cache for 1 day (86400 seconds) since favicon rarely changes
-    httpd_resp_set_hdr(req, "Cache-Control", "max-age=86400, public");
-    httpd_resp_set_hdr(req, "ETag", "favicon-v1");
-    
-    // Check if client has this file cached (If-None-Match header)
-    char if_none_match[32];
-    if (httpd_req_get_hdr_value_str(req, "If-None-Match", if_none_match, sizeof(if_none_match)) == ESP_OK) {
-        if (strcmp(if_none_match, "favicon-v1") == 0) {
-            // Client has a valid cached version
-            httpd_resp_set_status(req, "304 Not Modified");
-            httpd_resp_send(req, NULL, 0);
-            ESP_LOGI(TAG, "http_server_favicon_handler: Sent 304 Not Modified");
-            return ESP_OK;
-        }
-    }
+    // Disable caching for development
+    httpd_resp_set_hdr(req, "Cache-Control", "no-cache, no-store, must-revalidate");
+    httpd_resp_set_hdr(req, "Pragma", "no-cache");
+    httpd_resp_set_hdr(req, "Expires", "0");
     
     // Send the file
     error = httpd_resp_send(req, (const char *)favicon_ico_start, favicon_ico_end - favicon_ico_start);
@@ -861,6 +815,14 @@ static esp_err_t http_server_sensor_handler(httpd_req_t *req)
     float humidity = 40.0f + ((float)rand() / RAND_MAX) * 20.0f;
 
     ESP_LOGI(TAG, "Simulated Temperature: %.2f°C, Humidity: %.2f%%", temp, humidity);
+
+    // Publish to AWS IoT
+    esp_err_t aws_result = aws_iot_publish_sensor_data(temp, humidity);
+    if (aws_result == ESP_OK) {
+        ESP_LOGI(TAG, "Successfully published sensor data to AWS IoT");
+    } else {
+        ESP_LOGW(TAG, "Failed to publish sensor data to AWS IoT: %s", esp_err_to_name(aws_result));
+    }
 
     // Format as JSON response
     snprintf(sensor_response, sizeof(sensor_response),
@@ -1619,5 +1581,32 @@ static esp_err_t http_server_rfid_reset_handler(httpd_req_t *req)
         ESP_LOGE(TAG, "Failed to reset RFID database: %s", esp_err_to_name(ret));
         httpd_resp_send_500(req);
     }
+    return ESP_OK;
+}
+
+/**
+ * @brief Responds with the current AWS IoT connection status
+ * 
+ * @param req HTTP request for which the URI needs to be handled
+ * @return esp_err_t ESP_OK on success, ESP_FAIL on failure
+ */
+static esp_err_t http_server_aws_iot_status_handler(httpd_req_t *req)
+{
+    ESP_LOGI(TAG, "AWS IoT Status Requested");
+    
+    // Get the AWS IoT connection status
+    bool connected = aws_iot_is_connected();
+    
+    // Create JSON response
+    char response[100];
+    snprintf(response, sizeof(response), 
+             "{\"connected\": %s, \"client_id\": \"%s\"}", 
+             connected ? "true" : "false",
+             CONFIG_AWS_EXAMPLE_CLIENT_ID);
+    
+    // Send response
+    httpd_resp_set_type(req, "application/json");
+    httpd_resp_send(req, response, strlen(response));
+    
     return ESP_OK;
 }

@@ -12,9 +12,10 @@ $(document).ready(function()
 {
   getSSID();
   getUpdateStatus();
-  //startSensorInterval();
+  startSensorInterval();
   startLocalTimeInterval();
   getSavedStationSSID();
+  getAWSIoTStatus(); // Get AWS IoT connection status
 
   // earlier I commented out this function, but this is also important
   // for the scenarios when the user has refreshed the web page
@@ -358,5 +359,44 @@ function getSSID()
   $.getJSON('/apSSID', function(data) {
     console.log(data);   // used for debugging
     $("#ap_ssid").text(data["ssid"]);
+  });
+}
+
+// Get the AWS IoT connection status
+function getAWSIoTStatus()
+{
+  $.getJSON('/awsIoTStatus', function(data) {
+    console.log("AWS IoT Status:", data);
+    
+    // Check if the AWS IoT status container exists
+    if ($("#aws_iot_container").length) {
+      // Container exists, just update the status text and class
+      if (data.connected) {
+        $("#aws_iot_status").text("Connected").removeClass("rd").addClass("gr");
+      } else {
+        $("#aws_iot_status").text("Disconnected").removeClass("gr").addClass("rd");
+      }
+      // Update client ID
+      $("#aws_client_id").text(data.client_id);
+    } else {
+      // Create the status container if it doesn't exist
+      var html = '<div id="aws_iot_container" class="row">' +
+                 '<div class="column"><h3>AWS IoT Status</h3>' +
+                 '<p><span id="aws_iot_status" class="' + (data.connected ? 'gr' : 'rd') + '">' + 
+                 (data.connected ? 'Connected' : 'Disconnected') + 
+                 '</span></p>' +
+                 '<p>Client ID: <span id="aws_client_id">' + data.client_id + '</span></p>' +
+                 '</div></div>';
+      
+      // Insert after the RFID Management section
+      $("#RFIDManagement").after(html);
+    }
+    
+    // Refresh the status every 30 seconds
+    setTimeout(getAWSIoTStatus, 30000);
+  }).fail(function(jqXHR, textStatus, errorThrown) {
+    console.error("Failed to get AWS IoT status: " + textStatus + ", " + errorThrown);
+    // Retry after 30 seconds on failure
+    setTimeout(getAWSIoTStatus, 30000);
   });
 }
