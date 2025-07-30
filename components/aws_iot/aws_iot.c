@@ -103,7 +103,12 @@ esp_err_t aws_iot_start(void)
     
     // Create event group for AWS IoT connection status
     aws_iot_event_group = xEventGroupCreate();
-    
+    if (aws_iot_event_group == NULL)
+    {
+        ESP_LOGE(TAG, "Failed to create event group");
+        return ESP_FAIL;
+    }
+
     // Configure MQTT client - only need start pointers for certificates
     // Note: hyphens in filenames are converted to underscores in the symbol names
     extern const uint8_t amazon_root_ca1_pem_start[] asm("_binary_AmazonRootCA1_pem_start");
@@ -135,21 +140,29 @@ esp_err_t aws_iot_start(void)
     };
     
     mqtt_client = esp_mqtt_client_init(&mqtt_cfg);
-    if (mqtt_client == NULL) {
+    if (mqtt_client == NULL)
+    {
         ESP_LOGE(TAG, "Failed to initialize MQTT client");
+        vEventGroupDelete(aws_iot_event_group);
+        aws_iot_event_group = NULL;
         return ESP_FAIL;
     }
-    
+
     // Register MQTT event handler
     esp_mqtt_client_register_event(mqtt_client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
     
     // Start MQTT client
     esp_err_t err = esp_mqtt_client_start(mqtt_client);
-    if (err != ESP_OK) {
+    if (err != ESP_OK)
+    {
         ESP_LOGE(TAG, "Failed to start MQTT client: %s", esp_err_to_name(err));
+        esp_mqtt_client_destroy(mqtt_client);
+        mqtt_client = NULL;
+        vEventGroupDelete(aws_iot_event_group);
+        aws_iot_event_group = NULL;
         return err;
     }
-    
+
     // No automatic publishing task - publishing will be triggered from HTTP handler
     
     return ESP_OK;
