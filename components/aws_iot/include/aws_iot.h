@@ -7,17 +7,17 @@
 /**
  * @brief AWS IoT Client ID - This should match your Thing name in AWS IoT
  */
-#define CONFIG_AWS_EXAMPLE_CLIENT_ID "captive_portal_sesnor"  // Your Thing name from AWS IoT
+#define CONFIG_AWS_EXAMPLE_CLIENT_ID ""  // Your Thing name from AWS IoT
 
 /**
  * @brief MQTT topic for publishing sensor data
  */
-#define AWS_IOT_SENSOR_TOPIC "esp32/sensor/data"
+#define AWS_IOT_SENSOR_TOPIC ""
 
 /**
  * @brief AWS IoT endpoint - Your actual endpoint from AWS IoT Console
  */
-#define AWS_IOT_MQTT_HOST "a2i7j4dffjhf8m-ats.iot.us-east-1.amazonaws.com"
+#define AWS_IOT_MQTT_HOST ""
 
 /**
  * @brief Initialize and start AWS IoT connection
