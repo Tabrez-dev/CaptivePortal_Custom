@@ -12,7 +12,8 @@ This change introduces AWS IoT integration throughout the project. It adds a new
 | **Main Application AWS IoT Integration**<br>`main/main.c`<br>`main/CMakeLists.txt`                                                                                                                                                                       | Adds AWS IoT message handler for commands, registers the callback, and updates build dependencies.                                                                                            |
 | **AWS IoT Component Testing**<br>`components/aws_iot/test/aws_iot_test.c`<br>`components/aws_iot/test/CMakeLists.txt`                                                                                                                                    | Adds a Unity-based test verifying AWS IoT startup after Wi‑Fi connection, with necessary build setup.                                                                                         |
 
-```mermaid sequenceDiagram
+```mermaid
+sequenceDiagram
     participant User
     participant Web Browser
     participant Local Server (HTTP)
